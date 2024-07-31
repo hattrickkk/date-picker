@@ -1,0 +1,84 @@
+{
+    "env": {
+        "browser": true,
+        "es2021": true,
+        "node": true,
+        "jest": true
+    },
+
+    "extends": [
+        "airbnb",
+        "eslint:recommended",
+        "plugin:react/recommended",
+        "plugin:prettier/recommended",
+        "plugin:@typescript-eslint/recommended"
+    ],
+
+    "overrides": [
+        {
+            "env": {
+                "node": true
+            },
+            "files": [".eslintrc.{js, cjs}"],
+            "parserOptions": {
+                "sourceType": "script"
+            }
+        }
+    ],
+
+    "parser": "@babel/eslint-parser",
+    "parserOptions": {
+        "ecmaFeatures": {
+            "jsx": true
+        },
+        "ecmaVersion": "latest",
+        "sourceType": "module"
+    },
+    "settings": {
+        "react": {
+            "version": "detect"
+        },
+        "import/resolver": {
+            "typescript": {}
+        }
+    },
+
+    "plugins": ["react", "prettier", "simple-import-sort"],
+
+    "rules": {
+        "prettier/prettier": "error",
+        "@typescript-eslint/no-unused-vars": ["off"],
+        "react/require-default-props": "off",
+        "react/react-in-jsx-scope": "off",
+        "react/jsx-props-no-spreading": "off",
+        "import/no-extraneous-dependencies": ["error", { "devDependencies": true }],
+        "react/jsx-filename-extension": [1, { "extensions": [".tsx", ".ts", ".jsx", ".js"] }],
+        "import/extensions": [
+            "error",
+            "ignorePackages",
+            {
+                "js": "never",
+                "mjs": "never",
+                "jsx": "never",
+                "ts": "never",
+                "tsx": "never"
+            }
+        ],
+        "simple-import-sort/imports": [
+            "error",
+            {
+                "groups": [
+                    ["^react", "^@?\\w"],
+                    ["^(@|assets|components|constants|contexts|customTypes|mockData|pages|ui|utils)(/.*|$)"],
+                    ["^\\."],
+                    ["^\\.styled.ts$"]
+                ]
+            }
+        ],
+        "simple-import-sort/exports": "error",
+        "import/first": "error",
+        "import/no-duplicates": "error"
+    },
+
+    "ignorePatterns": ["/.git", "node_modules", "./github"]
+}

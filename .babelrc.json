@@ -1,0 +1,18 @@
+{
+    "presets": [
+ [
+      "@babel/preset-env",
+      {
+        "modules": false
+      }
+    ],
+        "@babel/preset-typescript",
+        [
+            "@babel/react",
+            {
+                "runtime": "automatic"
+            }
+        ]
+    ],
+    "plugins": ["@babel/plugin-transform-typescript", "@babel/plugin-syntax-flow"]
+}

@@ -49,6 +49,7 @@
         "prettier/prettier": "error",
         "@typescript-eslint/no-unused-vars": ["off"],
         "react/require-default-props": "off",
+        "consistent-return": "off",
         "react/react-in-jsx-scope": "off",
         "react/jsx-props-no-spreading": "off",
         "import/no-extraneous-dependencies": ["error", { "devDependencies": true }],
@@ -71,7 +72,7 @@
                     ["^react", "^@?\\w"],
                     ["^(@|assets|components|constants|contexts|customTypes|mockData|pages|ui|utils)(/.*|$)"],
                     ["^\\."],
-                    ["^\\.styled.ts$"]
+                    ["^\\styled.ts$"]
                 ]
             }
         ],

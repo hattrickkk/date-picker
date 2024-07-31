@@ -1,6 +1,6 @@
 import React from 'react'
 
-import StyledButton from './button.styled'
+import StyledButton from './styled'
 
 export interface ButtonProps {
     primary?: boolean

@@ -4,8 +4,9 @@
         "paths": {
             "@components/*": ["src/components/*"],
             "@utils/*": ["src/utils/*"],
-            "@stories/*": ["stories/*"],
-            "@cmp/*": ["src/components/*"], 
+            "@constants/*": ["src/constants/*"], 
+            "@ui/*": ["src/ui/*"], 
+            "@styles/*": ["src/styles/*"], 
         },
         "target": "es5",
         "outDir": "lib",

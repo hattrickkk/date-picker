@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-const StyledButton = styled.button<{ $primary: boolean; $size: string; $bg: string }>`
+const StyledButton = styled.div<{ $primary: boolean; $size: string; $bg: string }>`
     font-size: 20px;
     padding: 13px 20px;
     border-radius: 5px;

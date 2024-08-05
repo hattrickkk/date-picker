@@ -21,8 +21,7 @@
         "forceConsistentCasingInFileNames": true,
         "module": "ES2020",
         "moduleResolution": "node",
-        "resolveJsonModule": true, // или false..
-        //   "resolveJsonModule": true, // или false..
+        "resolveJsonModule": true,
         "isolatedModules": true,
         "jsx": "react",
         "sourceMap": true,

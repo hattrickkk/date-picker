@@ -45,7 +45,6 @@ export default defineConfig({
                 { find: '@styles', replacement: resolve(__dirname, 'src/styles') },
             ],
         }),
-
         isDev ? null : terser(),
     ],
 })

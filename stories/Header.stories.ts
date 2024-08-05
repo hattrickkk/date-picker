@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react'
+import { fn } from '@storybook/test'
 
 import Header from '../src/components/header'
 
@@ -30,6 +31,7 @@ const meta = {
             },
         },
     },
+    args: { nextArrowClick: fn(), prevArrowClick: fn() },
 } satisfies Meta<typeof Header>
 
 export default meta

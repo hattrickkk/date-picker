@@ -43,6 +43,7 @@ export default defineConfig({
                 { find: '@constants', replacement: resolve(__dirname, 'src/constants') },
                 { find: '@utils', replacement: resolve(__dirname, 'src/utils') },
                 { find: '@styles', replacement: resolve(__dirname, 'src/styles') },
+                { find: '@customTypes', replacement: resolve(__dirname, 'src/customTypes') },
             ],
         }),
         isDev ? null : terser(),

@@ -1,12 +1,13 @@
 import React from 'react'
-import Cell from '@components/cell'
+import Cell from '@ui/cell'
 import getCountOfDays from '@utils/getCountOfDays'
 import getCurrent from '@utils/getCurrent'
+import CellClick from 'src/customTypes/cellClickType'
 
 type Props = {
     month: number
     year: number
-    onClick: (day: number, isCurrent?: boolean) => VoidFunction
+    onClick: CellClick
 }
 
 function PrevDays({ month, year, onClick }: Props) {

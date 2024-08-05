@@ -1,13 +1,14 @@
 import React from 'react'
-import Cell from '@components/cell'
 import { CALENDAR_DAYS_COUNT } from '@constants/magicValues'
+import Cell from '@ui/cell'
 import getCountOfDays from '@utils/getCountOfDays'
 import getCurrent from '@utils/getCurrent'
+import CellClick from 'src/customTypes/cellClickType'
 
 type Props = {
     month: number
     year: number
-    onClick: (el: number, isCurrent?: boolean) => VoidFunction
+    onClick: CellClick
 }
 
 function NextDays({ month, year, onClick }: Props) {

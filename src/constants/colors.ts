@@ -1,6 +1,7 @@
 export const BLACK: string = '#333'
 export const LIGHT_GRAY: string = '#F1F1F1'
 export const GRAY: string = '#AAA'
+export const BORDER_GRAY: string = '#e1e1e1'
 export const WHITE: string = '#FFFFFF'
 export const BLUE: string = '#2F80ED'
 export const LIGHT_BLUE: string = '#82b3f4'

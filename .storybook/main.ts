@@ -24,6 +24,7 @@ const config: StorybookConfig = {
                 '@ui': path.resolve(__dirname, '../src/ui'),
                 '@utils': path.resolve(__dirname, '../src/utils'),
                 '@styles': path.resolve(__dirname, '../src/styles'),
+                '@customTypes': path.resolve(__dirname, '../src/customTypes'),
             }
         }
         return config

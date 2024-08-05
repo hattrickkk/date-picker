@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useCallback, useState } from 'react'
 import CurrentDays from '@components/currentDays'
 import Header from '@components/header'
 import NextDays from '@components/nextDays'
@@ -15,27 +15,28 @@ function Calendar() {
     const [year, setYear] = useState(() => getCurrent()[1])
     const [selectedDate, setSelectedDate] = useState<null | number>(null)
 
-    const next = () => {
+    const next = useCallback(() => {
         if (month === 10) {
             setMonth(0)
             setYear(year + 1)
         } else {
             setMonth(month + 1)
         }
-    }
+    }, [month])
 
-    const prev = () => {
+    const prev = useCallback(() => {
         if (month === 0) {
             setMonth(11)
             setYear(year - 1)
         } else {
             setMonth(month - 1)
         }
-    }
+    }, [month])
 
     const cellClick =
         (day: number, isCurrent: boolean = true) =>
-        () => {
+        (e: React.MouseEvent<HTMLDivElement>) => {
+            e.stopPropagation()
             if (!isCurrent) {
                 day < HALF_OF_THE_MONTH ? next() : prev()
             }
@@ -55,4 +56,4 @@ function Calendar() {
     )
 }
 
-export default Calendar
+export default React.memo(Calendar)

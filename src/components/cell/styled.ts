@@ -13,18 +13,31 @@ const StyledCell = styled.div<Props>`
     height: 32px;
     border-radius: 8px;
     padding: 8px;
+    transition: 0.3s all ease;
+    cursor: pointer;
     color: ${({ $isCurrentMonth }) => ($isCurrentMonth ? colors.BLACK : colors.GRAY)};
+
+    &:hover {
+        background-color: ${colors.LIGHT_GRAY};
+    }
 
     ${({ $isToday }) =>
         $isToday &&
         `color: ${colors.BLACK};
-        border: 1.5px solid ${colors.BLUE};
+        border: 1.5px solid ${colors.GRAY};
     `}
 
     ${({ $isSelected }) =>
         $isSelected &&
-        `color: ${colors.WHITE};
+        `
+        &:hover{
+            background-color: ${colors.BLUE};
+        }
+
+        color: ${colors.WHITE};
         background-color: ${colors.BLUE};
+        border: 1.5px solid ${colors.BLUE};
+        transition: 0s;
     `}
 
     ${({ $range }) => {

@@ -13,12 +13,3 @@ export const StyledArrow = styled.div`
         transform: scale(1.1);
     }
 `
-
-export const StyledText = styled.span`
-    &:first-child {
-        margin-right: 10px;
-    }
-
-    font-weight: 700;
-    font-size: 14px;
-`

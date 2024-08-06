@@ -8,5 +8,5 @@ export const StyledWrapper = styled.div<{ $isOpen: boolean }>`
     overflow: hidden;
     transition: 0.3s all ease;
 
-    ${({ $isOpen }) => $isOpen && `height: 276px;`}
+    ${({ $isOpen }) => $isOpen && `height: 277px;`}
 `

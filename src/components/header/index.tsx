@@ -1,29 +1,23 @@
-import React from 'react'
-import MONTHS from '@constants/month'
+import React, { ReactElement } from 'react'
 import Flex from '@styles/flexStyles'
 import Arrow from '@ui/arrow'
 
-import { StyledArrow, StyledHeader, StyledText } from './styled'
+import { StyledArrow, StyledHeader } from './styled'
 
 type Props = {
-    month: number
-    year: number
     nextArrowClick: VoidFunction
     prevArrowClick: VoidFunction
+    children?: ReactElement
 }
 
-function Header({ month, year, nextArrowClick, prevArrowClick }: Props) {
+function Header({ nextArrowClick, prevArrowClick, children }: Props) {
     return (
         <StyledHeader>
             <Flex $alignitems='center'>
                 <StyledArrow onClick={prevArrowClick}>
                     <Arrow />
                 </StyledArrow>
-                <Flex $alignitems='center'>
-                    <StyledText> {MONTHS[month]} </StyledText>
-                    <StyledText> {year}</StyledText>
-                </Flex>
-
+                {children}
                 <StyledArrow onClick={nextArrowClick}>
                     <Arrow isNext />
                 </StyledArrow>

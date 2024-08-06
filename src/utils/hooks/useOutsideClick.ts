@@ -3,7 +3,7 @@ import { RefObject, useEffect } from 'react'
 const useOutsideClick = (
     calendarRef: RefObject<HTMLDivElement>,
     inputRef: RefObject<HTMLInputElement>,
-    setOpen: React.Dispatch<React.SetStateAction<boolean>>,
+    close: VoidFunction,
     open: boolean
 ) => {
     useEffect(() => {
@@ -13,7 +13,7 @@ const useOutsideClick = (
                     !calendarRef.current.contains(e.target as HTMLElement) &&
                     !inputRef.current?.contains(e.target as HTMLElement)
                 )
-                    setOpen(false)
+                    close()
             }
         }
 

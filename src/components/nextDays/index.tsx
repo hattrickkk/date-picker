@@ -1,9 +1,9 @@
 import React from 'react'
 import { CALENDAR_DAYS_COUNT } from '@constants/magicValues'
+import CellClick from '@customTypes/cellClickType'
 import Cell from '@ui/cell'
 import getCountOfDays from '@utils/getCountOfDays'
 import getCurrent from '@utils/getCurrent'
-import CellClick from 'src/customTypes/cellClickType'
 
 type Props = {
     month: number

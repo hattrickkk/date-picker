@@ -1,9 +1,11 @@
-import React from 'react'
-import { CALENDAR_DAYS_COUNT } from '@constants/magicValues'
+import React, { useContext } from 'react'
+import { CALENDAR_DAYS_COUNT, MO } from '@constants/magicValues'
 import CellClick from '@customTypes/cellClickType'
 import Cell from '@ui/cell'
 import getCountOfDays from '@utils/getCountOfDays'
 import getCurrent from '@utils/getCurrent'
+import getDayOfTheWeek from '@utils/getDayOfTheWeek'
+import { WeekStartsContext } from '@utils/hocs/withWeakStarts'
 
 type Props = {
     month: number
@@ -15,9 +17,10 @@ function NextDays({ month, year, onClick }: Props) {
     const [curMonth, curYear, curDay] = getCurrent()
 
     const daysInCurentMonth = getCountOfDays(year, month + 1)
-    const dayOfTheWeekFirst = new Date(year, month, 1).getDay()
+    const dayOfTheWeekFirst = getDayOfTheWeek(year, month, 1)
 
-    const countOfNextDays = CALENDAR_DAYS_COUNT - (daysInCurentMonth + dayOfTheWeekFirst)
+    const { start } = useContext(WeekStartsContext)
+    const countOfNextDays = CALENDAR_DAYS_COUNT - (daysInCurentMonth + dayOfTheWeekFirst - (start === MO ? 1 : 0))
     const nextDays = []
     for (let i = 1; i <= countOfNextDays; i++) {
         nextDays.push(i)

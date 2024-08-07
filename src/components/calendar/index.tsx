@@ -14,7 +14,11 @@ import useOpen from '@utils/hooks/useOpen'
 
 import { StyledCalendar, StyledText, Wrapper } from './styled'
 
-function Calendar() {
+type Props = {
+    highlightWeekends: boolean
+}
+
+function Calendar({ highlightWeekends }: Props) {
     const [month, setMonth] = useState(() => getCurrent()[0])
     const [year, setYear] = useState(() => getCurrent()[1])
     const [selectedDate, setSelectedDate] = useState<null | number>(null)
@@ -87,7 +91,13 @@ function Calendar() {
             <Weakdays />
             <Flex $flexwrap='wrap'>
                 <PrevDays month={month} year={year} onClick={cellClick} />
-                <CurrentDays month={month} year={year} onClick={cellClick} selectedDate={selectedDate} />
+                <CurrentDays
+                    isHighlightWeekends={highlightWeekends}
+                    month={month}
+                    year={year}
+                    onClick={cellClick}
+                    selectedDate={selectedDate}
+                />
                 <NextDays month={month} year={year} onClick={cellClick} />
             </Flex>
         </StyledCalendar>

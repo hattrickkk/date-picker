@@ -6,6 +6,7 @@ type Props = {
     $isToday: boolean
     $isSelected: boolean
     $range: string
+    $isWeekend: boolean
 }
 
 const StyledCell = styled.div<Props>`
@@ -15,7 +16,8 @@ const StyledCell = styled.div<Props>`
     padding: 8px;
     transition: 0.3s all ease;
     cursor: pointer;
-    color: ${({ $isCurrentMonth }) => ($isCurrentMonth ? colors.BLACK : colors.GRAY)};
+    color: ${({ $isWeekend, $isCurrentMonth }) =>
+        $isWeekend ? colors.RED : $isCurrentMonth ? colors.BLACK : colors.GRAY};
 
     &:hover {
         background-color: ${colors.LIGHT_GRAY};

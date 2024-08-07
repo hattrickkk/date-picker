@@ -8,17 +8,27 @@ type Props = {
     isCurrentMonth?: boolean
     isToday?: boolean
     isSelected?: boolean
+    isWeekend?: boolean
     range?: 'start' | 'middle' | 'end' | 'none'
     onClick: (e: React.MouseEvent<HTMLDivElement>) => void
 }
 
-function Cell({ isCurrentMonth = true, isSelected = false, isToday = false, day = 1, range = 'none', onClick }: Props) {
+function Cell({
+    isCurrentMonth = true,
+    isSelected = false,
+    isToday = false,
+    day = 1,
+    range = 'none',
+    isWeekend = false,
+    onClick,
+}: Props) {
     return (
         <StyledCell
             $isCurrentMonth={isCurrentMonth}
             $isToday={isToday}
             $isSelected={isSelected}
             $range={range}
+            $isWeekend={isWeekend}
             onClick={onClick}
         >
             <Flex $justifycontent='center' $alignitems='center'>

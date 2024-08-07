@@ -3,15 +3,17 @@ import CellClick from '@customTypes/cellClickType'
 import Cell from '@ui/cell'
 import getCountOfDays from '@utils/getCountOfDays'
 import getCurrent from '@utils/getCurrent'
+import getDayOfTheWeek from '@utils/getDayOfTheWeek'
 
 type Props = {
     month: number
     year: number
     selectedDate: number | null
     onClick: CellClick
+    isHighlightWeekends: boolean
 }
 
-function PrevDays({ month, year, selectedDate, onClick }: Props) {
+function PrevDays({ month, year, selectedDate, onClick, isHighlightWeekends }: Props) {
     const [curMonth, curYear, curDay] = getCurrent()
 
     const daysInCurentMonth = getCountOfDays(year, month + 1)
@@ -24,6 +26,10 @@ function PrevDays({ month, year, selectedDate, onClick }: Props) {
         <>
             {currentDays.map((el, i) => (
                 <Cell
+                    isWeekend={
+                        isHighlightWeekends &&
+                        (getDayOfTheWeek(year, month, el) === 0 || getDayOfTheWeek(year, month, el) === 6)
+                    }
                     key={el}
                     day={el}
                     isSelected={selectedDate === i + 1}

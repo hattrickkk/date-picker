@@ -51,6 +51,8 @@
         "react/require-default-props": "off",
         "consistent-return": "off",
         "no-plusplus": "off",
+        "func-names": "off",
+        "no-nested-ternary": "off",
         "no-restricted-globals": "off",
         "react/display-name": "off",
         "no-unused-expressions": "off",

@@ -1,8 +1,11 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import { MO } from '@constants/magicValues'
 import CellClick from '@customTypes/cellClickType'
 import Cell from '@ui/cell'
 import getCountOfDays from '@utils/getCountOfDays'
 import getCurrent from '@utils/getCurrent'
+import getDayOfTheWeek from '@utils/getDayOfTheWeek'
+import { WeekStartsContext } from '@utils/hocs/withWeakStarts'
 
 type Props = {
     month: number
@@ -14,10 +17,11 @@ function PrevDays({ month, year, onClick }: Props) {
     const [curMonth, curYear, curDay] = getCurrent()
 
     const daysInPrevMonth = getCountOfDays(year, month)
-    const dayOfTheWeekFirst = new Date(year, month, 1).getDay()
+    const dayOfTheWeekFirst = getDayOfTheWeek(year, month, 1)
     const prevDays = []
 
-    for (let i = daysInPrevMonth - dayOfTheWeekFirst + 1; i <= daysInPrevMonth; i++) {
+    const { start } = useContext(WeekStartsContext)
+    for (let i = daysInPrevMonth - dayOfTheWeekFirst + (start === MO ? 2 : 1); i <= daysInPrevMonth; i++) {
         prevDays.push(i)
     }
 

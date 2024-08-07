@@ -3,12 +3,18 @@ import Calendar from '@components/calendar'
 import Input from '@components/input'
 import GlobalStyles from '@styles/global'
 import NullStyles from '@styles/nullStyles'
+import withWeekStarts from '@utils/hocs/withWeakStarts'
+import withWeekends from '@utils/hocs/withWeekends'
 import useOpen from '@utils/hooks/useOpen'
 import useOutsideClick from '@utils/hooks/useOutsideClick'
 
 import { StyledDatepicker, StyledWrapper } from './styled'
 
-function Datepicker() {
+type Props = {
+    highlightWeekends: boolean
+}
+
+function Datepicker({ highlightWeekends }: Props) {
     const { isOpen: isDatePickerOpen, open: openDatePicker, close: closeDatePicker } = useOpen()
 
     const inputClick = useCallback(() => (isDatePickerOpen ? closeDatePicker() : openDatePicker()), [isDatePickerOpen])
@@ -25,11 +31,11 @@ function Datepicker() {
             <StyledDatepicker>
                 <Input onClick={inputClick} isOpen={isDatePickerOpen} ref={inputRef} />
                 <StyledWrapper $isOpen={isDatePickerOpen} ref={calendarRef}>
-                    <Calendar />
+                    <Calendar highlightWeekends={highlightWeekends} />
                 </StyledWrapper>
             </StyledDatepicker>
         </>
     )
 }
 
-export default Datepicker
+export default withWeekStarts(withWeekends(Datepicker))

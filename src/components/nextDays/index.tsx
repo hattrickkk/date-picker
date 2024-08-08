@@ -1,10 +1,10 @@
-import React, { useContext } from 'react'
+import React, { memo, useContext } from 'react'
 import { CALENDAR_DAYS_COUNT, MO } from '@constants/magicValues'
-import CellClick from '@customTypes/cellClickType'
-import Cell from '@ui/cell'
-import getCountOfDays from '@utils/getCountOfDays'
-import getCurrent from '@utils/getCurrent'
-import getDayOfTheWeek from '@utils/getDayOfTheWeek'
+import { CellClick } from '@customTypes/cellClickType'
+import { Cell } from '@ui/cell'
+import { getCountOfDays } from '@utils/getCountOfDays'
+import { getCurrent } from '@utils/getCurrent'
+import { getDayOfTheWeek } from '@utils/getDayOfTheWeek'
 import { WeekStartsContext } from '@utils/hocs/withWeakStarts'
 
 type Props = {
@@ -13,7 +13,7 @@ type Props = {
     onClick: CellClick
 }
 
-function NextDays({ month, year, onClick }: Props) {
+export const NextDays = memo(({ month, year, onClick }: Props) => {
     const [curMonth, curYear, curDay] = getCurrent()
 
     const daysInCurentMonth = getCountOfDays(year, month + 1)
@@ -39,6 +39,4 @@ function NextDays({ month, year, onClick }: Props) {
             ))}
         </>
     )
-}
-
-export default React.memo(NextDays)
+})

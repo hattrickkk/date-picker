@@ -1,16 +1,16 @@
-import React, { useCallback, useState } from 'react'
-import CurrentDays from '@components/currentDays'
-import Header from '@components/header'
-import MonthPicker from '@components/monthPicker'
-import NextDays from '@components/nextDays'
-import PrevDays from '@components/prevDays'
-import Weakdays from '@components/weakdays'
-import YearPicker from '@components/yearPicker'
+import React, { memo, useCallback, useState } from 'react'
+import { CurrentDays } from '@components/currentDays'
+import { Header } from '@components/header'
+import { MonthPicker } from '@components/monthPicker'
+import { NextDays } from '@components/nextDays'
+import { PrevDays } from '@components/prevDays'
+import { Weakdays } from '@components/weakdays'
+import { YearPicker } from '@components/yearPicker'
 import { CALENDAR_YEARS_COUNT, HALF_OF_THE_MONTH } from '@constants/magicValues'
-import MONTHS from '@constants/month'
-import Flex from '@styles/flexStyles'
-import getCurrent from '@utils/getCurrent'
-import useOpen from '@utils/hooks/useOpen'
+import { MONTHS } from '@constants/month'
+import { Flex } from '@styles/flexStyles'
+import { getCurrent } from '@utils/getCurrent'
+import { useOpen } from '@utils/hooks/useOpen'
 
 import { StyledCalendar, StyledText, Wrapper } from './styled'
 
@@ -18,7 +18,7 @@ type Props = {
     highlightWeekends: boolean
 }
 
-function Calendar({ highlightWeekends }: Props) {
+export const Calendar = memo(({ highlightWeekends }: Props) => {
     const [month, setMonth] = useState(() => getCurrent()[0])
     const [year, setYear] = useState(() => getCurrent()[1])
     const [selectedDate, setSelectedDate] = useState<null | number>(null)
@@ -102,6 +102,4 @@ function Calendar({ highlightWeekends }: Props) {
             </Flex>
         </StyledCalendar>
     )
-}
-
-export default React.memo(Calendar)
+})

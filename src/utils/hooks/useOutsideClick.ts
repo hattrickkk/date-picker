@@ -1,6 +1,6 @@
 import { RefObject, useEffect } from 'react'
 
-const useOutsideClick = (
+export const useOutsideClick = (
     calendarRef: RefObject<HTMLDivElement>,
     inputRef: RefObject<HTMLInputElement>,
     close: VoidFunction,
@@ -23,4 +23,3 @@ const useOutsideClick = (
         }
     }, [open, calendarRef, inputRef])
 }
-export default useOutsideClick

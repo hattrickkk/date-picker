@@ -9,7 +9,7 @@ type Props = {
     $isWeekend: boolean
 }
 
-const StyledCell = styled.div<Props>`
+export const StyledCell = styled.div<Props>`
     width: 32px;
     height: 32px;
     border-radius: 8px;
@@ -67,4 +67,3 @@ const StyledCell = styled.div<Props>`
         }
     }}
 `
-export default StyledCell

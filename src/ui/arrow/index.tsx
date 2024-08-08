@@ -1,10 +1,10 @@
-import React from 'react'
+import React, { memo } from 'react'
 
 type Props = {
     isNext?: boolean
 }
 
-function Arrow({ isNext = false }: Props) {
+export const Arrow = memo(({ isNext = false }: Props) => {
     return isNext ? (
         <svg width='16' height='17' viewBox='0 0 16 17' fill='none' xmlns='http://www.w3.org/2000/svg'>
             <path
@@ -28,5 +28,4 @@ function Arrow({ isNext = false }: Props) {
             />
         </svg>
     )
-}
-export default React.memo(Arrow)
+})

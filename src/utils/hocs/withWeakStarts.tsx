@@ -9,8 +9,8 @@ type HocProps = {
     weekStarts: 'Monday' | 'Sunday'
 }
 
-const withWeekStarts = <P extends object>(WrappedComponent: ComponentType<P>) => {
-    return function ({ weekStarts, ...props }: P & HocProps): ReactElement {
+export const withWeekStarts = <P extends object>(WrappedComponent: ComponentType<P>) => {
+    return ({ weekStarts, ...props }: P & HocProps): ReactElement => {
         const value = useMemo(() => {
             return { start: weekStarts }
         }, [weekStarts])
@@ -21,5 +21,3 @@ const withWeekStarts = <P extends object>(WrappedComponent: ComponentType<P>) =>
         )
     }
 }
-
-export default withWeekStarts

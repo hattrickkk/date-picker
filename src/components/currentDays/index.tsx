@@ -1,9 +1,9 @@
-import React from 'react'
-import CellClick from '@customTypes/cellClickType'
-import Cell from '@ui/cell'
-import getCountOfDays from '@utils/getCountOfDays'
-import getCurrent from '@utils/getCurrent'
-import getDayOfTheWeek from '@utils/getDayOfTheWeek'
+import React, { memo } from 'react'
+import { CellClick } from '@customTypes/cellClickType'
+import { Cell } from '@ui/cell'
+import { getCountOfDays } from '@utils/getCountOfDays'
+import { getCurrent } from '@utils/getCurrent'
+import { getDayOfTheWeek } from '@utils/getDayOfTheWeek'
 
 type Props = {
     month: number
@@ -13,7 +13,7 @@ type Props = {
     isHighlightWeekends: boolean
 }
 
-function PrevDays({ month, year, selectedDate, onClick, isHighlightWeekends }: Props) {
+export const CurrentDays = memo(({ month, year, selectedDate, onClick, isHighlightWeekends }: Props) => {
     const [curMonth, curYear, curDay] = getCurrent()
 
     const daysInCurentMonth = getCountOfDays(year, month + 1)
@@ -39,6 +39,4 @@ function PrevDays({ month, year, selectedDate, onClick, isHighlightWeekends }: P
             ))}
         </>
     )
-}
-
-export default React.memo(PrevDays)
+})

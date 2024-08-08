@@ -51,6 +51,14 @@
         "react/require-default-props": "off",
         "consistent-return": "off",
         "no-plusplus": "off",
+        "react/function-component-definition": [
+            "error",
+            {
+                "namedComponents": "arrow-function",
+                "unnamedComponents": "arrow-function"
+            }
+        ],
+        "import/prefer-default-export": "off",
         "func-names": "off",
         "no-nested-ternary": "off",
         "no-restricted-globals": "off",

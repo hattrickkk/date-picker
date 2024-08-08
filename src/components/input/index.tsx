@@ -1,6 +1,6 @@
-import React, { forwardRef, RefObject } from 'react'
-import CalendarIcon from '@ui/calendarIcon'
-import CloseIcon from '@ui/closeIcon'
+import React, { forwardRef } from 'react'
+import { CalendarIcon } from '@ui/calendarIcon'
+import { CloseIcon } from '@ui/closeIcon'
 
 import { StyledCalendarIcon, StyledCloseIcon, StyledInput, StyledWrapper } from './styled'
 
@@ -9,7 +9,7 @@ type Props = {
     isOpen: boolean
 }
 
-const Input = forwardRef<HTMLInputElement, Props>(({ onClick, isOpen }: Props, ref) => {
+export const Input = forwardRef<HTMLInputElement, Props>(({ onClick, isOpen }: Props, ref) => {
     return (
         <StyledWrapper>
             <StyledCalendarIcon>
@@ -25,5 +25,3 @@ const Input = forwardRef<HTMLInputElement, Props>(({ onClick, isOpen }: Props, r
         </StyledWrapper>
     )
 })
-
-export default Input

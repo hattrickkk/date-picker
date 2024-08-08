@@ -8,11 +8,10 @@ type FlexPropsType = Partial<{
     $gap: number
 }>
 
-const Flex = styled.div<FlexPropsType>`
+export const Flex = styled.div<FlexPropsType>`
     display: flex;
     flex-direction: ${props => props.$flexdirection || ' row'};
     flex-wrap: ${props => props.$flexwrap || ' no-wrap'};
     justify-content: ${props => props.$justifycontent || 'space-between'};
     align-items: ${props => props.$alignitems || ' stretch'};
 `
-export default Flex

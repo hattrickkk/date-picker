@@ -1,6 +1,6 @@
-import React from 'react'
-import pickerItemClick from '@customTypes/pickerItemClickType'
-import Flex from '@styles/flexStyles'
+import React, { memo } from 'react'
+import { pickerItemClick } from '@customTypes/pickerItemClickType'
+import { Flex } from '@styles/flexStyles'
 
 import { Item, Wrapper } from './styled'
 
@@ -9,7 +9,7 @@ type Props = {
     onClick: pickerItemClick
 }
 
-function PickerItems({ elements, onClick }: Props) {
+export const PickerItems = memo(({ elements, onClick }: Props) => {
     return (
         <Wrapper>
             <Flex $flexwrap='wrap'>
@@ -21,6 +21,4 @@ function PickerItems({ elements, onClick }: Props) {
             </Flex>
         </Wrapper>
     )
-}
-
-export default React.memo(PickerItems)
+})

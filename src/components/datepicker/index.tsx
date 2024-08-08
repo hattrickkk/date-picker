@@ -1,12 +1,12 @@
 import React, { useCallback, useRef } from 'react'
-import Calendar from '@components/calendar'
-import Input from '@components/input'
-import GlobalStyles from '@styles/global'
-import NullStyles from '@styles/nullStyles'
-import withWeekStarts from '@utils/hocs/withWeakStarts'
-import withWeekends from '@utils/hocs/withWeekends'
-import useOpen from '@utils/hooks/useOpen'
-import useOutsideClick from '@utils/hooks/useOutsideClick'
+import { Calendar } from '@components/calendar'
+import { Input } from '@components/input'
+import { GlobalStyles } from '@styles/global'
+import { NullStyles } from '@styles/nullStyles'
+import { withWeekStarts } from '@utils/hocs/withWeakStarts'
+import { withWeekends } from '@utils/hocs/withWeekends'
+import { useOpen } from '@utils/hooks/useOpen'
+import { useOutsideClick } from '@utils/hooks/useOutsideClick'
 
 import { StyledDatepicker, StyledWrapper } from './styled'
 
@@ -14,7 +14,7 @@ type Props = {
     highlightWeekends: boolean
 }
 
-function Datepicker({ highlightWeekends }: Props) {
+const Datepicker = ({ highlightWeekends }: Props) => {
     const { isOpen: isDatePickerOpen, open: openDatePicker, close: closeDatePicker } = useOpen()
 
     const inputClick = useCallback(() => (isDatePickerOpen ? closeDatePicker() : openDatePicker()), [isDatePickerOpen])

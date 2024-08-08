@@ -1,6 +1,6 @@
-import React, { useCallback } from 'react'
+import React, { memo, useCallback } from 'react'
 import { CALENDAR_YEARS_COUNT } from '@constants/magicValues'
-import PickerItems from '@ui/pickerItems'
+import { PickerItems } from '@ui/pickerItems'
 
 type Props = {
     setYear: React.Dispatch<React.SetStateAction<number>>
@@ -8,7 +8,7 @@ type Props = {
     year: number
 }
 
-function YearPicker({ setYear, closeYearPicker, year }: Props) {
+export const YearPicker = memo(({ setYear, closeYearPicker, year }: Props) => {
     const itemClickHandler = useCallback(
         (el: number) => (e: React.MouseEvent<HTMLButtonElement>) => {
             e.stopPropagation()
@@ -24,6 +24,4 @@ function YearPicker({ setYear, closeYearPicker, year }: Props) {
     }
 
     return <PickerItems elements={years} onClick={itemClickHandler} />
-}
-
-export default React.memo(YearPicker)
+})

@@ -1,6 +1,6 @@
 import { createGlobalStyle } from 'styled-components'
 
-const NullStyles = createGlobalStyle`
+export const NullStyles = createGlobalStyle`
 	* {
 		padding: 0;
 		margin: 0;
@@ -61,4 +61,3 @@ const NullStyles = createGlobalStyle`
 		vertical-align: top;
 	}
 `
-export default NullStyles

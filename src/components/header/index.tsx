@@ -1,6 +1,6 @@
-import React, { ReactElement } from 'react'
-import Flex from '@styles/flexStyles'
-import Arrow from '@ui/arrow'
+import React, { memo, ReactElement } from 'react'
+import { Flex } from '@styles/flexStyles'
+import { Arrow } from '@ui/arrow'
 
 import { StyledArrow, StyledHeader } from './styled'
 
@@ -10,7 +10,7 @@ type Props = {
     children?: ReactElement
 }
 
-function Header({ nextArrowClick, prevArrowClick, children }: Props) {
+export const Header = memo(({ nextArrowClick, prevArrowClick, children }: Props) => {
     return (
         <StyledHeader>
             <Flex $alignitems='center'>
@@ -24,6 +24,4 @@ function Header({ nextArrowClick, prevArrowClick, children }: Props) {
             </Flex>
         </StyledHeader>
     )
-}
-
-export default Header
+})

@@ -5,6 +5,7 @@ import { Cell } from '@ui/cell'
 import { getCountOfDays } from '@utils/getCountOfDays'
 import { getCurrent } from '@utils/getCurrent'
 import { getDayOfTheWeek } from '@utils/getDayOfTheWeek'
+import { getNumbersFromTo } from '@utils/getNumbersFromTo'
 
 type Props = {
     month: number
@@ -18,10 +19,7 @@ export const CurrentDays = memo(({ month, year, selectedDate, onClick, isHighlig
     const [curMonth, curYear, curDay] = getCurrent()
 
     const daysInCurentMonth = getCountOfDays(year, month + 1)
-    const currentDays = []
-    for (let i = 1; i <= daysInCurentMonth; i++) {
-        currentDays.push(i)
-    }
+    const currentDays = getNumbersFromTo(1, daysInCurentMonth)
 
     return (
         <>

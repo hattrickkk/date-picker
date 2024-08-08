@@ -6,6 +6,7 @@ import { Cell } from '@ui/cell'
 import { getCountOfDays } from '@utils/getCountOfDays'
 import { getCurrent } from '@utils/getCurrent'
 import { getDayOfTheWeek } from '@utils/getDayOfTheWeek'
+import { getNumbersFromTo } from '@utils/getNumbersFromTo'
 import { WeekStartsContext } from '@utils/hocs/withWeakStarts'
 
 type Props = {
@@ -22,10 +23,7 @@ export const NextDays = memo(({ month, year, onClick }: Props) => {
 
     const { start } = useContext(WeekStartsContext)
     const countOfNextDays = CALENDAR_DAYS_COUNT - (daysInCurentMonth + dayOfTheWeekFirst - (start === MO ? 1 : 0))
-    const nextDays = []
-    for (let i = 1; i <= countOfNextDays; i++) {
-        nextDays.push(i)
-    }
+    const nextDays = getNumbersFromTo(1, countOfNextDays)
 
     return (
         <>

@@ -1,4 +1,4 @@
-import React, { memo, useCallback, useState } from 'react'
+import React, { memo, useCallback, useContext, useState } from 'react'
 
 import { CurrentDays } from '@components/currentDays'
 import { Header } from '@components/header'
@@ -11,6 +11,9 @@ import { CALENDAR_YEARS_COUNT, HALF_OF_THE_MONTH } from '@constants/magicValues'
 import { MONTHS } from '@constants/month'
 import { Flex } from '@styles/flexStyles'
 import { getCurrent } from '@utils/getCurrent'
+import { getMonthForDatePicker } from '@utils/getMonthForDatePicker'
+import { getYearForDatePicker } from '@utils/getYearForDatePicker'
+import { WithRestrictionsContext } from '@utils/hocs/withRestrictions'
 import { useOpen } from '@utils/hooks/useOpen'
 
 import { StyledCalendar, StyledText, Wrapper } from './styled'
@@ -20,8 +23,11 @@ type Props = {
 }
 
 export const Calendar = memo(({ highlightWeekends }: Props) => {
-    const [month, setMonth] = useState(() => getCurrent()[0])
-    const [year, setYear] = useState(() => getCurrent()[1])
+    const { minYear, maxYear } = useContext(WithRestrictionsContext)
+
+    const [month, setMonth] = useState(() => getMonthForDatePicker(minYear, maxYear))
+    const [year, setYear] = useState(() => getYearForDatePicker(minYear, maxYear))
+
     const [selectedDate, setSelectedDate] = useState<null | number>(null)
 
     const { isOpen: isMonthPickerOpen, open: openMonthPicker, close: closeMonthPicker } = useOpen()
@@ -70,7 +76,12 @@ export const Calendar = memo(({ highlightWeekends }: Props) => {
         <StyledCalendar>
             {isMonthPickerOpen && (
                 <Wrapper>
-                    <Header nextArrowClick={setNextYear} prevArrowClick={setPrevYear}>
+                    <Header
+                        nextArrowClick={setNextYear}
+                        prevArrowClick={setPrevYear}
+                        nextArrowDisable={year >= maxYear}
+                        prevArrowDisable={year <= minYear}
+                    >
                         <StyledText onClick={openYearPicker}> {year}</StyledText>
                     </Header>
                     <MonthPicker setMonth={setMonth} closeMonthPicker={closeMonthPicker} />
@@ -78,12 +89,22 @@ export const Calendar = memo(({ highlightWeekends }: Props) => {
             )}
             {isYearPickerOpen && (
                 <Wrapper>
-                    <Header nextArrowClick={setNextYears} prevArrowClick={setPrevYears} />
+                    <Header
+                        nextArrowClick={setNextYears}
+                        prevArrowClick={setPrevYears}
+                        nextArrowDisable={maxYear - year <= CALENDAR_YEARS_COUNT}
+                        prevArrowDisable={year - minYear <= 0}
+                    />
                     <YearPicker setYear={setYear} closeYearPicker={closeYearPicker} year={year} />
                 </Wrapper>
             )}
 
-            <Header nextArrowClick={next} prevArrowClick={prev}>
+            <Header
+                nextArrowClick={next}
+                prevArrowClick={prev}
+                nextArrowDisable={year >= maxYear && month === 11}
+                prevArrowDisable={year <= minYear && month === 0}
+            >
                 <Flex $alignitems='center'>
                     <StyledText onClick={openMonthPicker}> {MONTHS[month]} </StyledText>
                     <StyledText onClick={yearClickHandler}> {year}</StyledText>
@@ -91,7 +112,7 @@ export const Calendar = memo(({ highlightWeekends }: Props) => {
             </Header>
             <Weakdays />
             <Flex $flexwrap='wrap'>
-                <PrevDays month={month} year={year} onClick={cellClick} />
+                <PrevDays month={month} year={year} minYear={minYear} onClick={cellClick} />
                 <CurrentDays
                     isHighlightWeekends={highlightWeekends}
                     month={month}
@@ -99,7 +120,7 @@ export const Calendar = memo(({ highlightWeekends }: Props) => {
                     onClick={cellClick}
                     selectedDate={selectedDate}
                 />
-                <NextDays month={month} year={year} onClick={cellClick} />
+                <NextDays month={month} year={year} onClick={cellClick} maxYear={maxYear} />
             </Flex>
         </StyledCalendar>
     )

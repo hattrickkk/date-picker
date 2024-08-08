@@ -12,10 +12,11 @@ import { WeekStartsContext } from '@utils/hocs/withWeakStarts'
 type Props = {
     month: number
     year: number
+    minYear: number
     onClick: CellClick
 }
 
-export const PrevDays = memo(({ month, year, onClick }: Props) => {
+export const PrevDays = memo(({ month, year, onClick, minYear }: Props) => {
     const [curMonth, curYear, curDay] = getCurrent()
 
     const daysInPrevMonth = getCountOfDays(year, month)
@@ -33,6 +34,7 @@ export const PrevDays = memo(({ month, year, onClick }: Props) => {
                     key={el}
                     day={el}
                     isToday={el === curDay && month === curMonth + 1 && year === curYear}
+                    disable={year <= minYear && month === 0}
                     onClick={onClick(el, false)}
                 />
             ))}

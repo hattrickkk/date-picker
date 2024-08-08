@@ -25,6 +25,26 @@ const meta = {
                 type: 'radio',
             },
         },
+        maxYear: {
+            name: 'Max year',
+            type: 'number',
+            description: 'Max year in date picker',
+            defaultValue: 2300,
+            control: {
+                type: 'number',
+                min: 0,
+            },
+        },
+        minYear: {
+            name: 'Min year',
+            type: 'number',
+            description: 'Mix year in date picker',
+            defaultValue: 0,
+            control: {
+                type: 'number',
+                min: 0,
+            },
+        },
     },
     tags: ['autodocs'],
 } satisfies Meta<typeof Datepicker>

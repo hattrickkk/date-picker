@@ -11,6 +11,7 @@ type Props = {
     isSelected?: boolean
     isWeekend?: boolean
     range?: 'start' | 'middle' | 'end' | 'none'
+    disable?: boolean
     onClick: (e: React.MouseEvent<HTMLDivElement>) => void
 }
 
@@ -22,6 +23,7 @@ export const Cell = memo(
         day = 1,
         range = 'none',
         isWeekend = false,
+        disable = false,
         onClick,
     }: Props) => {
         return (
@@ -31,6 +33,7 @@ export const Cell = memo(
                 $isSelected={isSelected}
                 $range={range}
                 $isWeekend={isWeekend}
+                $disable={disable}
                 onClick={onClick}
             >
                 <Flex $justifycontent='center' $alignitems='center'>

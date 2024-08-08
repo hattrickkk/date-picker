@@ -4,7 +4,7 @@
     "description": "",
     "license": "ISC",
     "type": "module",
-    "outputDir": "./dist",
+    "outputDir": "./lib",
     "main": "lib/index.js",
     "module": "lib/index.js",
     "types": "lib/index.d.ts",
@@ -70,7 +70,6 @@
         "rimraf": "5.0.0",
         "rollup": "^4.19.1",
         "rollup-plugin-peer-deps-external": "^2.2.4",
-        "rollup-plugin-postcss": "^4.0.2",
         "rollup-plugin-typescript2": "^0.36.0",
         "storybook": "^8.2.6",
         "typescript": "^5.5.4"

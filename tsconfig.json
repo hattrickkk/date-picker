@@ -4,8 +4,10 @@
         "paths": {
             "@components/*": ["src/components/*"],
             "@utils/*": ["src/utils/*"],
-            "@stories/*": ["stories/*"],
-            "@cmp/*": ["src/components/*"], 
+            "@constants/*": ["src/constants/*"], 
+            "@ui/*": ["src/ui/*"], 
+            "@styles/*": ["src/styles/*"], 
+            "@customTypes/*": ["src/customTypes/*"], 
         },
         "target": "es5",
         "outDir": "lib",
@@ -20,8 +22,7 @@
         "forceConsistentCasingInFileNames": true,
         "module": "ES2020",
         "moduleResolution": "node",
-        "resolveJsonModule": true, // или false..
-        //   "resolveJsonModule": true, // или false..
+        "resolveJsonModule": true,
         "isolatedModules": true,
         "jsx": "react",
         "sourceMap": true,

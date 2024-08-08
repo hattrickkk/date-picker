@@ -1,6 +1,4 @@
-import { MONTHS } from '@constants/month'
-
-export const getCurrent = (): number[] => {
+export const getCurrent = () => {
     const date = new Date()
     const year = date.getFullYear()
     const month = date.getMonth()

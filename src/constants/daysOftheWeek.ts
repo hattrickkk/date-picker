@@ -1,7 +1,7 @@
-const Sunday: string[] = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa']
-const Monday: string[] = ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su']
+const Sunday = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa']
+const Monday = ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su']
 
-export const DAYS_OF_THE_WEEK: Record<string, string[]> = {
+export const DAYS_OF_THE_WEEK = {
     Sunday,
     Monday,
 }

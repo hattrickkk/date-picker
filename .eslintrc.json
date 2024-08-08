@@ -79,20 +79,28 @@
                 "tsx": "never"
             }
         ],
-        "simple-import-sort/imports": [
-            "error",
-            {
-                "groups": [
-                    ["^react", "^@?\\w"],
-                    ["^(@|components|constants|contexts|customTypes|ui|utils)(/.*|$)"],
-                    ["^\\."],
-                    ["^\\styled.ts$"]
-                ]
-            }
-        ],
+
         "simple-import-sort/exports": "error",
         "import/first": "error",
-        "import/no-duplicates": "error"
+        "import/no-duplicates": "error",
+        "import/order": [
+            "error",
+            {
+                "groups": ["builtin", "external", "internal"],
+                "pathGroups": [
+                    {
+                        "pattern": "**/styled.ts",
+                        "group": "unknown",
+                        "position": "after"
+                    }
+                ],
+                "newlines-between": "always",
+                "alphabetize": {
+                    "order": "asc",
+                    "caseInsensitive": true
+                }
+            }
+        ]
     },
 
     "ignorePatterns": ["/.git", "node_modules", "./github"]

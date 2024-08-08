@@ -1,4 +1,5 @@
 import React, { memo } from 'react'
+
 import { Flex } from '@styles/flexStyles'
 
 import { StyledCell } from './styled'

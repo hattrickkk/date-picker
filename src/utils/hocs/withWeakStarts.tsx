@@ -1,4 +1,4 @@
-import React, { ComponentType, createContext, FC, ReactElement, useMemo } from 'react'
+import React, { ComponentType, createContext, ReactElement, useMemo } from 'react'
 
 type WeekStartsContextType = {
     start: 'Monday' | 'Sunday'

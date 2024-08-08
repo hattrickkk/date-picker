@@ -1,4 +1,5 @@
 import React, { memo, useContext } from 'react'
+
 import { DAYS_OF_THE_WEEK } from '@constants/daysOftheWeek'
 import { MO, SU } from '@constants/magicValues'
 import { Flex } from '@styles/flexStyles'

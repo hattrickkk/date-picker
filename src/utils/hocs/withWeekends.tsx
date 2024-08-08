@@ -1,4 +1,4 @@
-import React, { ComponentType, FC, ReactElement } from 'react'
+import React, { ComponentType, ReactElement } from 'react'
 
 type HocProps = {
     highlightWeekends: boolean

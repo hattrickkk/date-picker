@@ -1,4 +1,5 @@
 import React, { memo } from 'react'
+
 import { CellClick } from '@customTypes/cellClickType'
 import { Cell } from '@ui/cell'
 import { getCountOfDays } from '@utils/getCountOfDays'

@@ -1,5 +1,6 @@
-import * as colors from '@constants/colors'
 import styled from 'styled-components'
+
+import * as colors from '@constants/colors'
 
 export const StyledCalendar = styled.div`
     margin-top: 8px;

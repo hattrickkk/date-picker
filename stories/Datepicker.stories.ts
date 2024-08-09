@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
 import Datepicker from '../src/components/datepicker'
+import * as colors from '../src/constants/colors'
 
 const meta = {
     title: 'Example/Datepicker',
@@ -43,6 +44,24 @@ const meta = {
             control: {
                 type: 'number',
                 min: 0,
+            },
+        },
+        holidaysColor: {
+            name: 'Background color',
+            type: 'string',
+            description: 'Background color for holidays',
+            defaultValue: colors.HOLIDAYS_COLOR,
+            control: {
+                type: 'color',
+            },
+        },
+        hideHolidays: {
+            name: 'Show Holidays',
+            type: 'boolean',
+            description: 'Show Holidays or not',
+            defaultValue: true,
+            control: {
+                type: 'boolean',
             },
         },
     },

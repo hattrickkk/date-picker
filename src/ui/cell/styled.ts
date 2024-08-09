@@ -9,6 +9,8 @@ type Props = {
     $range: string
     $isWeekend: boolean
     $disable: boolean
+    $isHoliday: boolean
+    $holidaysColor: string
 }
 
 export const StyledCell = styled.div<Props>`
@@ -33,6 +35,15 @@ export const StyledCell = styled.div<Props>`
         `color: ${colors.BLACK};
         border: 1.5px solid ${colors.GRAY};
     `}
+
+        ${({ $isHoliday, $holidaysColor }) =>
+        $isHoliday &&
+        ` 
+        &:hover{
+        background-color: ${$holidaysColor}
+        }
+        background-color: ${$holidaysColor};
+        `}
 
     ${({ $isSelected }) =>
         $isSelected &&

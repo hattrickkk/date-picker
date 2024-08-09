@@ -1,9 +1,10 @@
-import React, { useCallback, useRef } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 
 import { Calendar } from '@components/calendar'
 import { Input } from '@components/input'
 import { GlobalStyles } from '@styles/global'
 import { NullStyles } from '@styles/nullStyles'
+import { withHolidays } from '@utils/hocs/withHolidays'
 import { withRestrictions } from '@utils/hocs/withRestrictions'
 import { withWeekStarts } from '@utils/hocs/withWeakStarts'
 import { withWeekends } from '@utils/hocs/withWeekends'
@@ -40,4 +41,4 @@ const Datepicker = ({ highlightWeekends }: Props) => {
     )
 }
 
-export default withRestrictions(withWeekStarts(withWeekends(Datepicker)))
+export default withHolidays(withRestrictions(withWeekStarts(withWeekends(Datepicker))))

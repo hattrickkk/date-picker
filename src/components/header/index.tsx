@@ -8,21 +8,25 @@ import { StyledArrow, StyledHeader } from './styled'
 type Props = {
     nextArrowClick: VoidFunction
     prevArrowClick: VoidFunction
+    nextArrowDisable: boolean
+    prevArrowDisable: boolean
     children?: ReactElement
 }
 
-export const Header = memo(({ nextArrowClick, prevArrowClick, children }: Props) => {
-    return (
-        <StyledHeader>
-            <Flex $alignitems='center'>
-                <StyledArrow onClick={prevArrowClick}>
-                    <Arrow />
-                </StyledArrow>
-                {children}
-                <StyledArrow onClick={nextArrowClick}>
-                    <Arrow isNext />
-                </StyledArrow>
-            </Flex>
-        </StyledHeader>
-    )
-})
+export const Header = memo(
+    ({ nextArrowClick, prevArrowClick, nextArrowDisable, prevArrowDisable, children }: Props) => {
+        return (
+            <StyledHeader>
+                <Flex $alignitems='center'>
+                    <StyledArrow $disable={prevArrowDisable} onClick={prevArrowClick}>
+                        <Arrow />
+                    </StyledArrow>
+                    {children}
+                    <StyledArrow $disable={nextArrowDisable} onClick={nextArrowClick}>
+                        <Arrow isNext />
+                    </StyledArrow>
+                </Flex>
+            </StyledHeader>
+        )
+    }
+)

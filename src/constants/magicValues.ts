@@ -4,3 +4,6 @@ export const CALENDAR_YEARS_COUNT = 15
 
 export const MO = 'Monday'
 export const SU = 'Sunday'
+
+export const LANG = 'EN'
+export const HOLIDAYS_KEY = 'HOLIDAYS'

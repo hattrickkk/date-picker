@@ -7,13 +7,13 @@ export const Wrapper = styled.div`
     align-items: center;
     margin-top: 15px;
 `
-export const Item = styled.button`
+export const Item = styled.button<{ $disable: boolean }>`
     &:hover {
-        background-color: ${colors.LIGHT_GRAY};
+        background-color: ${({ $disable }) => ($disable ? colors.WHITE : colors.LIGHT_GRAY)};
     }
 
     background-color: ${colors.WHITE};
-    flex: 1 1 25%;
+    flex: 0 1 25%;
     font-weight: 700;
     font-size: 14px;
     text-align: center;
@@ -21,4 +21,11 @@ export const Item = styled.button`
     cursor: pointer;
     border-radius: 8px;
     transition: 0.3s all ease;
+
+    ${({ $disable }) =>
+        $disable &&
+        ` 
+        pointer-events: none;
+        color: ${colors.GRAY}
+    `}
 `

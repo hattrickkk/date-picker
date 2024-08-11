@@ -1,9 +1,8 @@
 import { useEffect, useState } from 'react'
 
+import { HOLIDAYS } from '@constants/holidays'
 import { HOLIDAYS_KEY } from '@constants/magicValues'
 import { Holiday } from '@customTypes/holidays'
-import { getHolidays } from '@utils/getHolidays'
-import { mapHolidays } from '@utils/mapHolidays'
 
 export const useHolidays = () => {
     const [holidays, setHolidays] = useState<Holiday[]>([])
@@ -12,11 +11,7 @@ export const useHolidays = () => {
         if (cachedHolidays) {
             setHolidays(JSON.parse(cachedHolidays))
         } else {
-            getHolidays().then(res => {
-                const mappedHolidays = mapHolidays(res)
-                setHolidays(mappedHolidays)
-                localStorage.setItem(HOLIDAYS_KEY, JSON.stringify(mappedHolidays))
-            })
+            localStorage.setItem(HOLIDAYS_KEY, JSON.stringify(HOLIDAYS))
         }
     }, [])
     return holidays

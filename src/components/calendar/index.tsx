@@ -1,4 +1,4 @@
-import React, { memo, useCallback, useContext, useState } from 'react'
+import React, { memo, useCallback, useContext, useEffect, useState } from 'react'
 
 import { CurrentDays } from '@components/currentDays'
 import { Header } from '@components/header'
@@ -7,35 +7,35 @@ import { NextDays } from '@components/nextDays'
 import { PrevDays } from '@components/prevDays'
 import { Weakdays } from '@components/weakdays'
 import { YearPicker } from '@components/yearPicker'
-import { CALENDAR_YEARS_COUNT, HALF_OF_THE_MONTH } from '@constants/magicValues'
+import { CALENDAR_YEARS_COUNT, FIRST_MONTH, HALF_OF_THE_MONTH, LAST_MONTH } from '@constants/magicValues'
 import { MONTHS } from '@constants/month'
 import { Flex } from '@styles/flexStyles'
-import { getCurrent } from '@utils/getCurrent'
 import { getMonthForDatePicker } from '@utils/getMonthForDatePicker'
 import { getYearForDatePicker } from '@utils/getYearForDatePicker'
 import { WithRestrictionsContext } from '@utils/hocs/withRestrictions'
+import { WithUserDateRedirectContext } from '@utils/hocs/withUserDateRedirect'
 import { useOpen } from '@utils/hooks/useOpen'
 
 import { StyledCalendar, StyledText, Wrapper } from './styled'
 
 type Props = {
     highlightWeekends: boolean
+    selectedDate: number | null
+    setSelectedDate: React.Dispatch<React.SetStateAction<number | null>>
 }
 
-export const Calendar = memo(({ highlightWeekends }: Props) => {
+export const Calendar = memo(({ highlightWeekends, selectedDate, setSelectedDate }: Props) => {
     const { minYear, maxYear } = useContext(WithRestrictionsContext)
 
     const [month, setMonth] = useState(() => getMonthForDatePicker(minYear, maxYear))
     const [year, setYear] = useState(() => getYearForDatePicker(minYear, maxYear))
 
-    const [selectedDate, setSelectedDate] = useState<null | number>(null)
-
     const { isOpen: isMonthPickerOpen, open: openMonthPicker, close: closeMonthPicker } = useOpen()
     const { isOpen: isYearPickerOpen, open: openYearPicker, close: closeYearPicker } = useOpen()
 
     const next = useCallback(() => {
-        if (month === 11) {
-            setMonth(0)
+        if (month === LAST_MONTH) {
+            setMonth(FIRST_MONTH)
             setYear(year + 1)
         } else {
             setMonth(month + 1)
@@ -43,8 +43,8 @@ export const Calendar = memo(({ highlightWeekends }: Props) => {
     }, [month])
 
     const prev = useCallback(() => {
-        if (month === 0) {
-            setMonth(11)
+        if (month === FIRST_MONTH) {
+            setMonth(LAST_MONTH)
             setYear(year - 1)
         } else {
             setMonth(month - 1)
@@ -71,6 +71,15 @@ export const Calendar = memo(({ highlightWeekends }: Props) => {
             }
             setSelectedDate(selectedDate === day ? null : day)
         }
+
+    const { date } = useContext(WithUserDateRedirectContext)
+    useEffect(() => {
+        if (date.month !== month || date.year !== year || date.day !== selectedDate) {
+            setYear(date.year)
+            setMonth(date.month - 1)
+            setSelectedDate(date.day)
+        }
+    }, [date])
 
     return (
         <StyledCalendar>
@@ -102,8 +111,8 @@ export const Calendar = memo(({ highlightWeekends }: Props) => {
             <Header
                 nextArrowClick={next}
                 prevArrowClick={prev}
-                nextArrowDisable={year >= maxYear && month === 11}
-                prevArrowDisable={year <= minYear && month === 0}
+                nextArrowDisable={year >= maxYear && month === LAST_MONTH}
+                prevArrowDisable={year <= minYear && month === FIRST_MONTH}
             >
                 <Flex $alignitems='center'>
                     <StyledText onClick={openMonthPicker}> {MONTHS[month]} </StyledText>

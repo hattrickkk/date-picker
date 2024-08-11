@@ -1,5 +1,6 @@
-import React, { memo, useContext, useEffect, useState } from 'react'
+import React, { memo, useContext } from 'react'
 
+import { SATURDAY_INDEX, SUNDAY_INDEX } from '@constants/magicValues'
 import { CellClick } from '@customTypes/cellClickType'
 import { Cell } from '@ui/cell'
 import { getCountOfDays } from '@utils/getCountOfDays'
@@ -32,7 +33,8 @@ export const CurrentDays = memo(({ month, year, selectedDate, onClick, isHighlig
                     day={el}
                     isWeekend={
                         isHighlightWeekends &&
-                        (getDayOfTheWeek(year, month, el) === 0 || getDayOfTheWeek(year, month, el) === 6)
+                        (getDayOfTheWeek(year, month, el) === SUNDAY_INDEX ||
+                            getDayOfTheWeek(year, month, el) === SATURDAY_INDEX)
                     }
                     isSelected={selectedDate === i + 1}
                     isToday={el === curDay && month === curMonth && year === curYear}

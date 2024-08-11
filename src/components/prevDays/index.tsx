@@ -1,6 +1,6 @@
 import React, { memo, useContext } from 'react'
 
-import { MO } from '@constants/magicValues'
+import { FIRST_MONTH, LAST_MONTH, MO } from '@constants/magicValues'
 import { CellClick } from '@customTypes/cellClickType'
 import { Cell } from '@ui/cell'
 import { getCountOfDays } from '@utils/getCountOfDays'
@@ -37,10 +37,14 @@ export const PrevDays = memo(({ month, year, onClick, minYear }: Props) => {
                     day={el}
                     isCurrentMonth={false}
                     isToday={el === curDay && month === curMonth + 1 && year === curYear}
-                    disable={year <= minYear && month === 0}
+                    disable={year <= minYear && month === FIRST_MONTH}
                     isHoliday={
                         datePickerService.getHideHolidays() &&
-                        isHolidayToday(month === 0 ? 12 : month, el, datePickerService.getHolidays())
+                        isHolidayToday(
+                            month === FIRST_MONTH ? LAST_MONTH + 1 : month,
+                            el,
+                            datePickerService.getHolidays()
+                        )
                     }
                     holidaysColor={datePickerService.getHolidaysColor()}
                     onClick={onClick(el, false)}

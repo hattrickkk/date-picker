@@ -24,10 +24,22 @@ export const StyledCalendarIcon = styled.div`
     pointer-events: none;
 `
 
-export const StyledInput = styled.input`
+export const StyledInput = styled.input<{ $isError: boolean }>`
     border: 1px solid ${colors.BORDER_GRAY};
     border-radius: 8px;
     padding: 11px 35px;
     font-size: 15px;
     width: 100%;
+
+    ${({ $isError }) =>
+        $isError &&
+        `
+            &:focus {
+                box-shadow: 0 0 5px ${colors.RED};
+            }
+    `}
+`
+export const StyledError = styled.p`
+    color: ${colors.RED};
+    padding-top: 5px;
 `

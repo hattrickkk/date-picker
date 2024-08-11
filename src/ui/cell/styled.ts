@@ -36,13 +36,13 @@ export const StyledCell = styled.div<Props>`
         border: 1.5px solid ${colors.GRAY};
     `}
 
-        ${({ $isHoliday, $holidaysColor }) =>
+    ${({ $isHoliday, $holidaysColor }) =>
         $isHoliday &&
         ` 
-        &:hover{
-        background-color: ${$holidaysColor}
-        }
-        background-color: ${$holidaysColor};
+            &:hover{
+                background-color: ${$holidaysColor}
+            }
+            background-color: ${$holidaysColor};
         `}
 
     ${({ $isSelected }) =>

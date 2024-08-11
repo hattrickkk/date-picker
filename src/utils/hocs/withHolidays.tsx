@@ -16,7 +16,7 @@ type WithHolidaysContextType = {
 
 export const WithHolidaysContext = createContext<WithHolidaysContextType>({} as WithHolidaysContextType)
 
-export const withHolidays = <P extends object>(WrappedComponent: ComponentType<P>) => {
+export const withHolidays = <P extends object>(WrappedComponent: ComponentType<P>, arr: Holiday[]) => {
     return ({ hideHolidays, holidaysColor, ...props }: P & HocProps): ReactElement => {
         const datePickerService = new DatePickerService()
         datePickerService.setHolidays(useHolidays())

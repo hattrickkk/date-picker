@@ -8,8 +8,10 @@ import { getCurrent } from '@utils/getCurrent'
 import { getDayOfTheWeek } from '@utils/getDayOfTheWeek'
 import { getNumbersFromTo } from '@utils/getNumbersFromTo'
 import { WithHolidaysContext } from '@utils/hocs/withHolidays'
+import { WithRangeContext } from '@utils/hocs/withRange'
 import { WeekStartsContext } from '@utils/hocs/withWeakStarts'
 import { isHolidayToday } from '@utils/isHolidayToday'
+import { getRangeValue } from '@utils/rangePicker/getRangeValue'
 
 type Props = {
     month: number
@@ -29,25 +31,28 @@ export const PrevDays = memo(({ month, year, onClick, minYear }: Props) => {
     const firstDayOfPrevMonth = daysInPrevMonth - dayOfTheWeekFirst + (start === MO ? 2 : 1)
     const prevDays = getNumbersFromTo(firstDayOfPrevMonth, daysInPrevMonth)
 
+    const { rangeStart, rangeEnd } = useContext(WithRangeContext)
+
     return (
         <>
-            {prevDays.map(el => (
+            {prevDays.map(element => (
                 <Cell
-                    key={el}
-                    day={el}
+                    key={element}
+                    day={element}
                     isCurrentMonth={false}
-                    isToday={el === curDay && month === curMonth + 1 && year === curYear}
+                    isToday={element === curDay && month === curMonth + 1 && year === curYear}
                     disable={year <= minYear && month === FIRST_MONTH}
                     isHoliday={
                         datePickerService.getHideHolidays() &&
                         isHolidayToday(
                             month === FIRST_MONTH ? LAST_MONTH + 1 : month,
-                            el,
+                            element,
                             datePickerService.getHolidays()
                         )
                     }
                     holidaysColor={datePickerService.getHolidaysColor()}
-                    onClick={onClick(el, false)}
+                    range={getRangeValue(rangeStart, rangeEnd, year, month - 1, element)}
+                    onClick={onClick(element, false)}
                 />
             ))}
         </>

@@ -8,8 +8,10 @@ import { getCurrent } from '@utils/getCurrent'
 import { getDayOfTheWeek } from '@utils/getDayOfTheWeek'
 import { getNumbersFromTo } from '@utils/getNumbersFromTo'
 import { WithHolidaysContext } from '@utils/hocs/withHolidays'
+import { WithRangeContext } from '@utils/hocs/withRange'
 import { WeekStartsContext } from '@utils/hocs/withWeakStarts'
 import { isHolidayToday } from '@utils/isHolidayToday'
+import { getRangeValue } from '@utils/rangePicker/getRangeValue'
 
 type Props = {
     month: number
@@ -29,21 +31,24 @@ export const NextDays = memo(({ month, year, maxYear, onClick }: Props) => {
     const countOfNextDays = CALENDAR_DAYS_COUNT - (daysInCurentMonth + dayOfTheWeekFirst - (start === MO ? 1 : 0))
     const nextDays = getNumbersFromTo(1, countOfNextDays)
 
+    const { rangeStart, rangeEnd } = useContext(WithRangeContext)
+
     return (
         <>
-            {nextDays.map(el => (
+            {nextDays.map(element => (
                 <Cell
-                    key={el}
-                    day={el}
+                    key={element}
+                    day={element}
                     isCurrentMonth={false}
-                    isToday={el === curDay && month === curMonth - 1 && year === curYear}
+                    isToday={element === curDay && month === curMonth - 1 && year === curYear}
                     disable={year >= maxYear && month === LAST_MONTH}
                     isHoliday={
                         datePickerService.getHideHolidays() &&
-                        isHolidayToday(month === LAST_MONTH ? 1 : month + 2, el, datePickerService.getHolidays())
+                        isHolidayToday(month === LAST_MONTH ? 1 : month + 2, element, datePickerService.getHolidays())
                     }
                     holidaysColor={datePickerService.getHolidaysColor()}
-                    onClick={onClick(el, false)}
+                    range={getRangeValue(rangeStart, rangeEnd, year, month + 1, element)}
+                    onClick={onClick(element, false)}
                 />
             ))}
         </>

@@ -1,16 +1,12 @@
 import React, { ComponentType, createContext, ReactElement, useMemo, useState } from 'react'
 
-import { getCurrent } from '@utils/getCurrent'
-
-type Date = {
-    day: number
-    month: number
-    year: number
-}
+import { DateType } from '@customTypes/date'
 
 type WithUserDateRedirectContextType = {
-    date: Date
-    setDate: React.Dispatch<React.SetStateAction<Date>>
+    date: DateType | null
+    setDate: React.Dispatch<React.SetStateAction<DateType | null>>
+    inputValue: string
+    setInputValue: React.Dispatch<React.SetStateAction<string>>
 }
 
 export const WithUserDateRedirectContext = createContext<WithUserDateRedirectContextType>(
@@ -19,12 +15,12 @@ export const WithUserDateRedirectContext = createContext<WithUserDateRedirectCon
 
 export const withUserDateRedirect = <P extends object>(WrappedComponent: ComponentType<P>) => {
     return (props: P): ReactElement => {
-        const [month, year, day] = getCurrent()
-        const initState = { day, month: month + 1, year }
-        const [date, setDate] = useState<Date>(initState)
+        const [date, setDate] = useState<DateType | null>(null)
+        const [inputValue, setInputValue] = useState('')
+
         const value = useMemo(() => {
-            return { date, setDate }
-        }, [date])
+            return { date, setDate, inputValue, setInputValue }
+        }, [date, inputValue])
 
         return (
             <WithUserDateRedirectContext.Provider value={value}>

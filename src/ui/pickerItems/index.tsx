@@ -16,13 +16,13 @@ export const PickerItems = memo(({ elements, onClick }: Props) => {
     return (
         <Wrapper>
             <Flex $flexwrap='wrap' $justifycontent='flex-start'>
-                {elements.map((el, i) => (
+                {elements.map((element, index) => (
                     <Item
-                        key={el}
-                        $disable={(el as number) < minYear || (el as number) > maxYear}
-                        onClick={onClick(typeof elements[0] === 'string' ? i : (el as number))}
+                        key={element}
+                        $disable={+element < minYear || +element > maxYear}
+                        onClick={onClick(typeof element === 'string' ? index : +element)}
                     >
-                        {el}
+                        {element}
                     </Item>
                 ))}
             </Flex>

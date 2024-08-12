@@ -11,8 +11,8 @@ export const Weakdays = memo(() => {
     const { start } = useContext(WeekStartsContext)
     return (
         <Flex>
-            {DAYS_OF_THE_WEEK[start === MO ? MO : SU].map(el => (
-                <StyledItem key={el}>{el}</StyledItem>
+            {DAYS_OF_THE_WEEK[start === MO ? MO : SU].map(element => (
+                <StyledItem key={element}>{element}</StyledItem>
             ))}
         </Flex>
     )

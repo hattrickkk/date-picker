@@ -1,14 +1,14 @@
 import React, { ComponentType, createContext, ReactElement, useMemo } from 'react'
 
 type Props = {
-    minYear: number
-    maxYear: number
+    minYear?: number
+    maxYear?: number
 }
 
-export const WithRestrictionsContext = createContext<Props>({ minYear: 0, maxYear: 2300 })
+export const WithRestrictionsContext = createContext<Required<Props>>({ minYear: 0, maxYear: 2300 })
 
 export const withRestrictions = <P extends object>(WrappedComponent: ComponentType<P>) => {
-    return ({ minYear, maxYear, ...props }: P & Props): ReactElement => {
+    return ({ minYear = 0, maxYear = 2300, ...props }: P & Props): ReactElement => {
         const max = maxYear
         const min = maxYear < minYear ? maxYear : minYear
 

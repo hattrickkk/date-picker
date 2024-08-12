@@ -9,7 +9,7 @@ export const SUNDAY_INDEX = 0
 export const SATURDAY_INDEX = 6
 
 export const NUMS_REGEX = /^[\d|/]+$/g
-export const DATE_REGEX = /^\d{2}\/\d{2}\/\d{4}$/
+export const DATE_REGEX = /^\d{2}\/\d{2}\/\d{1,4}$/
 
 export const MO = 'Monday'
 export const SU = 'Sunday'

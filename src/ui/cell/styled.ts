@@ -62,18 +62,27 @@ export const StyledCell = styled.div<Props>`
         switch ($range) {
             case 'start':
                 return `
+                    &:hover {
+                        background-color: ${colors.LIGHT_BLUE};
+                    }
+
+                    border: 1.5px solid ${colors.LIGHT_BLUE};
                     border-radius: 8px 0 0 8px;
                     color: ${colors.WHITE};
                     background-color: ${colors.LIGHT_BLUE};
                 `
             case 'end':
                 return `
+                    &:hover {
+                        background-color: ${colors.BLUE};
+                    }
                     border-radius: 0 8px 8px 0;
                     color: ${colors.WHITE};
                     background-color: ${colors.BLUE};
                 `
             case 'middle':
                 return `
+                    border: none;
                     border-radius: 0;
                     color: ${colors.BLUE};
                     background-color: ${colors.RANGE_BLUE};

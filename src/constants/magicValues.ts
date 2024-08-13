@@ -16,3 +16,4 @@ export const SU = 'Sunday'
 
 export const LANG = 'EN'
 export const HOLIDAYS_KEY = 'HOLIDAYS'
+export const TASKS_KEY = 'TASKS'

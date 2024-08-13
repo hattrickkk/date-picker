@@ -19,9 +19,15 @@ type Props = {
     highlightWeekends?: boolean
     isFromInput?: boolean
     rangePicker?: boolean
+    taskPicker?: boolean
 }
 
-const Datepicker = ({ highlightWeekends = false, isFromInput = false, rangePicker = false }: Props) => {
+const Datepicker = ({
+    highlightWeekends = false,
+    isFromInput = false,
+    rangePicker = false,
+    taskPicker = false,
+}: Props) => {
     const { isOpen: isDatePickerOpen, open: openDatePicker, close: closeDatePicker } = useOpen()
 
     const inputClick = useCallback(() => openDatePicker(), [isDatePickerOpen])
@@ -36,7 +42,7 @@ const Datepicker = ({ highlightWeekends = false, isFromInput = false, rangePicke
             <GlobalStyles />
             <NullStyles />
 
-            <StyledDatepicker>
+            <StyledDatepicker id='date-picker'>
                 <Input
                     onClick={inputClick}
                     ref={inputRef}
@@ -51,6 +57,8 @@ const Datepicker = ({ highlightWeekends = false, isFromInput = false, rangePicke
                         setSelectedDate={setSelectedDate}
                         isFromInput={isFromInput}
                         rangePicker={rangePicker}
+                        taskPicker={taskPicker}
+                        isDatePickerOpen={isDatePickerOpen}
                     />
                 </StyledWrapper>
             </StyledDatepicker>

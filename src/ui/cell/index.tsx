@@ -15,6 +15,7 @@ type Props = {
     disable?: boolean
     isHoliday?: boolean
     holidaysColor?: string
+    hasTask?: boolean
     onClick: (e: React.MouseEvent<HTMLDivElement>) => void
 }
 
@@ -29,6 +30,7 @@ export const Cell = memo(
         disable = false,
         isHoliday = false,
         holidaysColor = colors.HOLIDAYS_COLOR,
+        hasTask = false,
         onClick,
     }: Props) => (
         <StyledCell
@@ -40,6 +42,7 @@ export const Cell = memo(
             $disable={disable}
             $isHoliday={isHoliday}
             $holidaysColor={holidaysColor}
+            $hasTask={hasTask}
             onClick={onClick}
         >
             <Flex $justifycontent='center' $alignitems='center'>

@@ -14,19 +14,17 @@ type Props = {
 }
 
 export const Header = memo(
-    ({ nextArrowClick, prevArrowClick, nextArrowDisable, prevArrowDisable, children }: Props) => {
-        return (
-            <StyledHeader>
-                <Flex $alignitems='center'>
-                    <StyledArrow $disable={prevArrowDisable} onClick={prevArrowClick}>
-                        <Arrow />
-                    </StyledArrow>
-                    {children}
-                    <StyledArrow $disable={nextArrowDisable} onClick={nextArrowClick}>
-                        <Arrow isNext />
-                    </StyledArrow>
-                </Flex>
-            </StyledHeader>
-        )
-    }
+    ({ nextArrowClick, prevArrowClick, nextArrowDisable, prevArrowDisable, children }: Props) => (
+        <StyledHeader>
+            <Flex $alignitems='center'>
+                <StyledArrow $disable={prevArrowDisable} onClick={prevArrowClick}>
+                    <Arrow />
+                </StyledArrow>
+                {children}
+                <StyledArrow $disable={nextArrowDisable} onClick={nextArrowClick}>
+                    <Arrow isNext />
+                </StyledArrow>
+            </Flex>
+        </StyledHeader>
+    )
 )

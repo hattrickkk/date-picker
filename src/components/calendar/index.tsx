@@ -15,7 +15,7 @@ import { getDateforInput } from '@utils/getDateForInput'
 import { getYearForDatePicker } from '@utils/getYearForDatePicker'
 import { WithRangeContext } from '@utils/hocs/withRange'
 import { WithRestrictionsContext } from '@utils/hocs/withRestrictions'
-import { withUserDateRedirect, WithUserDateRedirectContext } from '@utils/hocs/withUserDateRedirect'
+import { WithUserDateRedirectContext } from '@utils/hocs/withUserDateRedirect'
 import { useOpen } from '@utils/hooks/useOpen'
 
 import { Clear, StyledCalendar, StyledText, Wrapper } from './styled'
@@ -112,13 +112,18 @@ export const Calendar = memo(
             }
         }, [date])
 
-        const clearClickHandler = () => {
+        const clearClickHandler = useCallback(() => {
             if (rangePicker) {
                 setRangeEnd(null)
                 setRangeStart(null)
                 setInputValue('')
             }
-        }
+        }, [])
+
+        const yearPickerNextArrowDisable = maxYear - year <= CALENDAR_YEARS_COUNT
+        const yearPickerPrevArrowDisable = year - minYear <= 0
+        const calendarNextArrowDisable = year >= maxYear && month === LAST_MONTH
+        const calendarPrevArrowDisable = year <= minYear && month === FIRST_MONTH
 
         return (
             <StyledCalendar>
@@ -144,8 +149,8 @@ export const Calendar = memo(
                         <Header
                             nextArrowClick={setNextYears}
                             prevArrowClick={setPrevYears}
-                            nextArrowDisable={maxYear - year <= CALENDAR_YEARS_COUNT}
-                            prevArrowDisable={year - minYear <= 0}
+                            nextArrowDisable={yearPickerNextArrowDisable}
+                            prevArrowDisable={yearPickerPrevArrowDisable}
                         />
                         <YearPicker
                             setYear={setYear}
@@ -159,8 +164,8 @@ export const Calendar = memo(
                 <Header
                     nextArrowClick={next}
                     prevArrowClick={prev}
-                    nextArrowDisable={year >= maxYear && month === LAST_MONTH}
-                    prevArrowDisable={year <= minYear && month === FIRST_MONTH}
+                    nextArrowDisable={calendarNextArrowDisable}
+                    prevArrowDisable={calendarPrevArrowDisable}
                 >
                     <Flex $alignitems='center'>
                         <StyledText onClick={openMonthPicker}> {MONTHS[month]} </StyledText>

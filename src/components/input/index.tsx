@@ -7,6 +7,7 @@ import { getDateforInput } from '@utils/getDateForInput'
 import { WithRangeContext } from '@utils/hocs/withRange'
 import { WithRestrictionsContext } from '@utils/hocs/withRestrictions'
 import { WithUserDateRedirectContext } from '@utils/hocs/withUserDateRedirect'
+import { validateInput } from '@utils/validateInput'
 
 import { StyledCalendarIcon, StyledCloseIcon, StyledError, StyledInput, StyledWrapper } from './styled'
 
@@ -25,23 +26,23 @@ export const Input = forwardRef<HTMLInputElement, Props>(
         const { minYear, maxYear } = useContext(WithRestrictionsContext)
         const { setRangeEnd, setRangeStart } = useContext(WithRangeContext)
 
-        const onInputChange = ({ target: { value } }: ChangeEvent<HTMLInputElement>) => {
+        const onInputChange = useCallback(({ target: { value } }: ChangeEvent<HTMLInputElement>) => {
             setError('')
             const condition = value.length <= 1 ? '' : inputValue
             const re = new RegExp(NUMS_REGEX)
             setInputValue(re.test(value) ? value : condition)
-        }
+        }, [])
 
         const handleKeyDown = ({ key }: React.KeyboardEvent<HTMLInputElement>) => {
             if (key === 'Enter') {
                 const regex = new RegExp(DATE_REGEX)
                 if (regex.test(inputValue)) {
-                    const [day, month, year] = inputValue.split('/').map(element => +element)
-                    const date = new Date(year, month - 1, day)
-                    const isValid = date.getMonth() === month - 1 && date.getDate() === day
-                    const settedYear = year > maxYear ? maxYear : year <= minYear ? minYear : year
-                    setInputValue(getDateforInput(day, month, settedYear))
-                    isValid ? setDate({ day, month, year: settedYear }) : setError('No such date exists')
+                    const {
+                        date: [day, month, year],
+                        isValid,
+                    } = validateInput(inputValue, maxYear, minYear)
+                    setInputValue(getDateforInput(day, month, year))
+                    isValid ? setDate({ day, month, year }) : setError('No such date exists')
                 } else {
                     setError('Invalid format')
                 }

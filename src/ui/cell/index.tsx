@@ -30,23 +30,21 @@ export const Cell = memo(
         isHoliday = false,
         holidaysColor = colors.HOLIDAYS_COLOR,
         onClick,
-    }: Props) => {
-        return (
-            <StyledCell
-                $isCurrentMonth={isCurrentMonth}
-                $isToday={isToday}
-                $isSelected={isSelected}
-                $range={range}
-                $isWeekend={isWeekend}
-                $disable={disable}
-                $isHoliday={isHoliday}
-                $holidaysColor={holidaysColor}
-                onClick={onClick}
-            >
-                <Flex $justifycontent='center' $alignitems='center'>
-                    <span> {day}</span>
-                </Flex>
-            </StyledCell>
-        )
-    }
+    }: Props) => (
+        <StyledCell
+            $isCurrentMonth={isCurrentMonth}
+            $isToday={isToday}
+            $isSelected={isSelected}
+            $range={range}
+            $isWeekend={isWeekend}
+            $disable={disable}
+            $isHoliday={isHoliday}
+            $holidaysColor={holidaysColor}
+            onClick={onClick}
+        >
+            <Flex $justifycontent='center' $alignitems='center'>
+                <span> {day}</span>
+            </Flex>
+        </StyledCell>
+    )
 )

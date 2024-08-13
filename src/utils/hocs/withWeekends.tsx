@@ -1,11 +1,11 @@
 import React, { ComponentType, ReactElement } from 'react'
 
 type HocProps = {
-    highlightWeekends: boolean
+    highlightWeekends?: boolean
 }
 
-export const withWeekends = <P extends object>(WrappedComponent: ComponentType<P & HocProps>) => {
-    return ({ highlightWeekends, ...props }: P & HocProps): ReactElement => {
+export const withWeekends = <P extends object>(WrappedComponent: ComponentType<P>) => {
+    return ({ highlightWeekends = false, ...props }: P & HocProps): ReactElement => {
         return <WrappedComponent {...(props as P)} highlightWeekends={highlightWeekends ?? false} />
     }
 }

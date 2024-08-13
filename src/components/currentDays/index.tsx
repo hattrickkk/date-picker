@@ -1,11 +1,16 @@
-import React, { memo } from 'react'
+import React, { memo, useCallback, useContext } from 'react'
 
+import { SATURDAY_INDEX, SUNDAY_INDEX } from '@constants/magicValues'
 import { CellClick } from '@customTypes/cellClickType'
 import { Cell } from '@ui/cell'
 import { getCountOfDays } from '@utils/getCountOfDays'
 import { getCurrent } from '@utils/getCurrent'
 import { getDayOfTheWeek } from '@utils/getDayOfTheWeek'
 import { getNumbersFromTo } from '@utils/getNumbersFromTo'
+import { WithHolidaysContext } from '@utils/hocs/withHolidays'
+import { WithRangeContext } from '@utils/hocs/withRange'
+import { isHolidayToday } from '@utils/isHolidayToday'
+import { getRangeValue } from '@utils/rangePicker/getRangeValue'
 
 type Props = {
     month: number
@@ -17,23 +22,32 @@ type Props = {
 
 export const CurrentDays = memo(({ month, year, selectedDate, onClick, isHighlightWeekends }: Props) => {
     const [curMonth, curYear, curDay] = getCurrent()
+    const { datePickerService } = useContext(WithHolidaysContext)
 
     const daysInCurentMonth = getCountOfDays(year, month + 1)
     const currentDays = getNumbersFromTo(1, daysInCurentMonth)
+    const { rangeStart, rangeEnd } = useContext(WithRangeContext)
 
     return (
         <>
-            {currentDays.map((el, i) => (
+            {currentDays.map((element, index) => (
                 <Cell
+                    key={element}
+                    day={element}
                     isWeekend={
                         isHighlightWeekends &&
-                        (getDayOfTheWeek(year, month, el) === 0 || getDayOfTheWeek(year, month, el) === 6)
+                        (getDayOfTheWeek(year, month, element) === SUNDAY_INDEX ||
+                            getDayOfTheWeek(year, month, element) === SATURDAY_INDEX)
                     }
-                    key={el}
-                    day={el}
-                    isSelected={selectedDate === i + 1}
-                    isToday={el === curDay && month === curMonth && year === curYear}
-                    onClick={onClick(el)}
+                    isSelected={selectedDate === index + 1}
+                    isToday={element === curDay && month === curMonth && year === curYear}
+                    isHoliday={
+                        datePickerService.getHideHolidays() &&
+                        isHolidayToday(month + 1, element, datePickerService.getHolidays())
+                    }
+                    holidaysColor={datePickerService.getHolidaysColor()}
+                    range={getRangeValue(rangeStart, rangeEnd, year, month, element)}
+                    onClick={onClick(element)}
                 />
             ))}
         </>

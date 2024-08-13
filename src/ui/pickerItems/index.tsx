@@ -1,7 +1,8 @@
-import React, { memo } from 'react'
+import React, { memo, useContext } from 'react'
 
 import { pickerItemClick } from '@customTypes/pickerItemClickType'
 import { Flex } from '@styles/flexStyles'
+import { WithRestrictionsContext } from '@utils/hocs/withRestrictions'
 
 import { Item, Wrapper } from './styled'
 
@@ -11,12 +12,17 @@ type Props = {
 }
 
 export const PickerItems = memo(({ elements, onClick }: Props) => {
+    const { minYear, maxYear } = useContext(WithRestrictionsContext)
     return (
         <Wrapper>
-            <Flex $flexwrap='wrap'>
-                {elements.map((el, i) => (
-                    <Item key={el} onClick={onClick(typeof elements[0] === 'string' ? i : (el as number))}>
-                        {el}
+            <Flex $flexwrap='wrap' $justifycontent='flex-start'>
+                {elements.map((element, index) => (
+                    <Item
+                        key={element}
+                        $disable={+element < minYear || +element > maxYear}
+                        onClick={onClick(typeof element === 'string' ? index : +element)}
+                    >
+                        {element}
                     </Item>
                 ))}
             </Flex>

@@ -1,9 +1,13 @@
-import React, { useCallback, useRef } from 'react'
+import React, { useCallback, useRef, useState } from 'react'
 
 import { Calendar } from '@components/calendar'
 import { Input } from '@components/input'
+import { HOLIDAYS } from '@constants/holidays'
 import { GlobalStyles } from '@styles/global'
 import { NullStyles } from '@styles/nullStyles'
+import { withHolidays } from '@utils/hocs/withHolidays'
+import { withRestrictions } from '@utils/hocs/withRestrictions'
+import { withUserDateRedirect } from '@utils/hocs/withUserDateRedirect'
 import { withWeekStarts } from '@utils/hocs/withWeakStarts'
 import { withWeekends } from '@utils/hocs/withWeekends'
 import { useOpen } from '@utils/hooks/useOpen'
@@ -12,13 +16,16 @@ import { useOutsideClick } from '@utils/hooks/useOutsideClick'
 import { StyledDatepicker, StyledWrapper } from './styled'
 
 type Props = {
-    highlightWeekends: boolean
+    highlightWeekends?: boolean
+    isFromInput?: boolean
+    rangePicker?: boolean
 }
 
-const Datepicker = ({ highlightWeekends }: Props) => {
+const Datepicker = ({ highlightWeekends = false, isFromInput = false, rangePicker = false }: Props) => {
     const { isOpen: isDatePickerOpen, open: openDatePicker, close: closeDatePicker } = useOpen()
 
-    const inputClick = useCallback(() => (isDatePickerOpen ? closeDatePicker() : openDatePicker()), [isDatePickerOpen])
+    const inputClick = useCallback(() => openDatePicker(), [isDatePickerOpen])
+    const [selectedDate, setSelectedDate] = useState<null | number>(null)
 
     const calendarRef = useRef<HTMLDivElement>(null)
     const inputRef = useRef<HTMLInputElement>(null)
@@ -30,13 +37,25 @@ const Datepicker = ({ highlightWeekends }: Props) => {
             <NullStyles />
 
             <StyledDatepicker>
-                <Input onClick={inputClick} isOpen={isDatePickerOpen} ref={inputRef} />
-                <StyledWrapper $isOpen={isDatePickerOpen} ref={calendarRef}>
-                    <Calendar highlightWeekends={highlightWeekends} />
+                <Input
+                    onClick={inputClick}
+                    ref={inputRef}
+                    setSelectedDate={setSelectedDate}
+                    isFromInput={isFromInput}
+                    rangePicker={rangePicker}
+                />
+                <StyledWrapper $isOpen={isDatePickerOpen} $rangePicker={rangePicker} ref={calendarRef}>
+                    <Calendar
+                        highlightWeekends={highlightWeekends}
+                        selectedDate={selectedDate}
+                        setSelectedDate={setSelectedDate}
+                        isFromInput={isFromInput}
+                        rangePicker={rangePicker}
+                    />
                 </StyledWrapper>
             </StyledDatepicker>
         </>
     )
 }
 
-export default withWeekStarts(withWeekends(Datepicker))
+export default withUserDateRedirect(withHolidays(withRestrictions(withWeekStarts(withWeekends(Datepicker))), HOLIDAYS))

@@ -27,6 +27,7 @@ export const Wrapper = styled.div`
     height: 100%;
     padding: 10px;
     border-radius: 10px;
+    z-index: 10;
 `
 export const Clear = styled.button`
     font-weight: 600;

@@ -11,7 +11,8 @@ export const useOutsideClick = (
             if (calendarRef.current) {
                 if (
                     !calendarRef.current.contains(e.target as HTMLElement) &&
-                    !inputRef.current?.contains(e.target as HTMLElement)
+                    !inputRef.current?.contains(e.target as HTMLElement) &&
+                    !(e.target as HTMLElement).closest('#task-modal')
                 )
                     close()
             }

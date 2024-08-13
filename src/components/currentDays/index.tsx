@@ -1,10 +1,11 @@
-import React, { memo, useCallback, useContext } from 'react'
+import React, { memo, useContext } from 'react'
 
 import { SATURDAY_INDEX, SUNDAY_INDEX } from '@constants/magicValues'
 import { CellClick } from '@customTypes/cellClickType'
 import { Cell } from '@ui/cell'
 import { getCountOfDays } from '@utils/getCountOfDays'
 import { getCurrent } from '@utils/getCurrent'
+import { getDateforInput } from '@utils/getDateForInput'
 import { getDayOfTheWeek } from '@utils/getDayOfTheWeek'
 import { getNumbersFromTo } from '@utils/getNumbersFromTo'
 import { WithHolidaysContext } from '@utils/hocs/withHolidays'
@@ -18,9 +19,10 @@ type Props = {
     selectedDate: number | null
     onClick: CellClick
     isHighlightWeekends: boolean
+    taskDays: string[]
 }
 
-export const CurrentDays = memo(({ month, year, selectedDate, onClick, isHighlightWeekends }: Props) => {
+export const CurrentDays = memo(({ month, year, selectedDate, onClick, isHighlightWeekends, taskDays }: Props) => {
     const [curMonth, curYear, curDay] = getCurrent()
     const { datePickerService } = useContext(WithHolidaysContext)
 
@@ -47,6 +49,7 @@ export const CurrentDays = memo(({ month, year, selectedDate, onClick, isHighlig
                     }
                     holidaysColor={datePickerService.getHolidaysColor()}
                     range={getRangeValue(rangeStart, rangeEnd, year, month, element)}
+                    hasTask={taskDays.includes(getDateforInput(element, month + 1, curYear))}
                     onClick={onClick(element)}
                 />
             ))}

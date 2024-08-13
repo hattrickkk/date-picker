@@ -53,25 +53,29 @@ export const Calendar = memo(
         const taskDays = taskPicker ? Object.keys(tasksPickerService.getTasks()) : []
         const { date, setInputValue } = useContext(WithUserDateRedirectContext)
 
-        const next = useCallback(() => {
+        const next = () => {
             if (month === LAST_MONTH) {
                 setMonth(FIRST_MONTH)
                 setYear(year + 1)
+                if (!rangePicker)
+                    setInputValue(selectedDate ? getDateforInput(selectedDate, FIRST_MONTH + 1, year + 1) : '')
             } else {
                 setMonth(month + 1)
+                if (!rangePicker) setInputValue(selectedDate ? getDateforInput(selectedDate, month + 2, year) : '')
             }
-            if (!rangePicker) setInputValue('')
-        }, [month])
+        }
 
-        const prev = useCallback(() => {
+        const prev = () => {
             if (month === FIRST_MONTH) {
                 setMonth(LAST_MONTH)
                 setYear(year - 1)
+                if (!rangePicker)
+                    setInputValue(selectedDate ? getDateforInput(selectedDate, LAST_MONTH + 1, year - 1) : '')
             } else {
                 setMonth(month - 1)
+                if (!rangePicker) setInputValue(selectedDate ? getDateforInput(selectedDate, month, year) : '')
             }
-            if (!rangePicker) setInputValue('')
-        }, [month])
+        }
 
         const setNextYear = useCallback(() => setYear(prevValue => prevValue + 1), [])
         const setPrevYear = useCallback(() => setYear(prevValue => prevValue - 1), [])
@@ -155,7 +159,7 @@ export const Calendar = memo(
                             nextArrowDisable={year >= maxYear}
                             prevArrowDisable={year <= minYear}
                         >
-                            <StyledText onClick={openYearPicker}> {year}</StyledText>
+                            <StyledText onClick={openYearPicker}>{year}</StyledText>
                         </Header>
                         <MonthPicker
                             setMonth={setMonth}

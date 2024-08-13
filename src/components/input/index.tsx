@@ -74,7 +74,7 @@ export const Input = forwardRef<HTMLInputElement, Props>(
                         onChange={onInputChange}
                         onKeyDown={handleKeyDown}
                         maxLength={10}
-                        $isError={!!error}
+                        $isError={!!error && !new RegExp(DATE_REGEX).test(inputValue)}
                     />
                     {!!inputValue && (
                         <StyledCloseIcon onClick={closeIconClickHandler}>
@@ -82,7 +82,7 @@ export const Input = forwardRef<HTMLInputElement, Props>(
                         </StyledCloseIcon>
                     )}
                 </StyledWrapper>
-                <StyledError>{error}</StyledError>
+                {!new RegExp(DATE_REGEX).test(inputValue) && <StyledError>{error}</StyledError>}
             </>
         )
     }

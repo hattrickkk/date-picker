@@ -47,7 +47,7 @@ const meta = {
             },
         },
         holidaysColor: {
-            name: 'Background color',
+            name: 'Holiday color',
             type: 'string',
             description: 'Background color for holidays',
             defaultValue: colors.HOLIDAYS_COLOR,

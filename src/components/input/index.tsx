@@ -1,4 +1,4 @@
-import React, { ChangeEvent, forwardRef, useCallback, useContext, useState } from 'react'
+import React, { ChangeEvent, forwardRef, useCallback, useContext, useMemo, useState } from 'react'
 
 import { DATE_REGEX, NUMS_REGEX } from '@constants/magicValues'
 import { CalendarIcon } from '@ui/calendarIcon'
@@ -26,20 +26,22 @@ export const Input = forwardRef<HTMLInputElement, Props>(
         const { minYear, maxYear } = useContext(WithRestrictionsContext)
         const { setRangeEnd, setRangeStart } = useContext(WithRangeContext)
 
+        const isInputValueValid = useMemo(() => new RegExp(DATE_REGEX).test(inputValue), [inputValue])
+        const isError = !isInputValueValid && !!error
+
         const onInputChange = useCallback(
             ({ target: { value } }: ChangeEvent<HTMLInputElement>) => {
                 setError('')
                 const condition = value.length <= 1 ? '' : inputValue
-                const re = new RegExp(NUMS_REGEX)
-                setInputValue(re.test(value) ? value : condition)
+                const regex = new RegExp(NUMS_REGEX)
+                setInputValue(regex.test(value) ? value : condition)
             },
             [inputValue]
         )
 
         const handleKeyDown = ({ key }: React.KeyboardEvent<HTMLInputElement>) => {
             if (key === 'Enter') {
-                const regex = new RegExp(DATE_REGEX)
-                if (regex.test(inputValue)) {
+                if (isInputValueValid) {
                     const {
                         date: [day, month, year],
                         isValid,
@@ -78,7 +80,7 @@ export const Input = forwardRef<HTMLInputElement, Props>(
                         onChange={onInputChange}
                         onKeyDown={handleKeyDown}
                         maxLength={10}
-                        $isError={!!error && !new RegExp(DATE_REGEX).test(inputValue)}
+                        $isError={isError}
                     />
                     {!!inputValue && (
                         <StyledCloseIcon onClick={closeIconClickHandler} data-testid='remove-icon'>
@@ -86,7 +88,7 @@ export const Input = forwardRef<HTMLInputElement, Props>(
                         </StyledCloseIcon>
                     )}
                 </StyledWrapper>
-                {!new RegExp(DATE_REGEX).test(inputValue) && <StyledError>{error}</StyledError>}
+                {isError && <StyledError>{error}</StyledError>}
             </>
         )
     }

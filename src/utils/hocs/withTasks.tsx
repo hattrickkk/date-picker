@@ -19,7 +19,7 @@ export const withTasks = <P extends object>(Component: ComponentType<P>) => {
         }, [tasksPickerService])
         return (
             <WithTasksContext.Provider value={value}>
-                <Component {...props} taskPicker />
+                <Component {...props} isTaskPicker />
             </WithTasksContext.Provider>
         )
     }

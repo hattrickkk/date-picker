@@ -15,11 +15,11 @@ type Props = {
     onClick: VoidFunction
     setSelectedDate: React.Dispatch<React.SetStateAction<number | null>>
     isFromInput: boolean
-    rangePicker: boolean
+    isRangePicker: boolean
 }
 
 export const Input = forwardRef<HTMLInputElement, Props>(
-    ({ onClick, setSelectedDate, isFromInput, rangePicker }: Props, ref) => {
+    ({ onClick, setSelectedDate, isFromInput, isRangePicker }: Props, ref) => {
         const [error, setError] = useState('')
 
         const { setDate, inputValue, setInputValue } = useContext(WithUserDateRedirectContext)
@@ -54,7 +54,7 @@ export const Input = forwardRef<HTMLInputElement, Props>(
             setInputValue('')
             setError('')
             setSelectedDate(null)
-            if (rangePicker) {
+            if (isRangePicker) {
                 isFromInput ? setRangeStart(null) : setRangeEnd(null)
             }
         }, [])

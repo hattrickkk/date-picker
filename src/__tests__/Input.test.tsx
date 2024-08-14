@@ -19,7 +19,12 @@ describe('input renders correctly', () => {
     beforeEach(() => {
         render(
             <WithUserDateRedirectContext.Provider value={contextValue}>
-                <Input onClick={inputClick} setSelectedDate={setSelectedDate} isFromInput={false} rangePicker={false} />
+                <Input
+                    onClick={inputClick}
+                    setSelectedDate={setSelectedDate}
+                    isFromInput={false}
+                    isRangePicker={false}
+                />
             </WithUserDateRedirectContext.Provider>
         )
     })

@@ -28,12 +28,12 @@ const UserRedirectContextCalue = {
 }
 
 const defaultProps = {
-    highlightWeekends: false,
+    isHighlightWeekends: false,
     selectedDate,
     setSelectedDate,
     isFromInput: false,
-    rangePicker: false,
-    taskPicker: false,
+    isRangePicker: false,
+    isTaskPicker: false,
     isDatePickerOpen: true,
 }
 

@@ -26,8 +26,8 @@ export const Tasks = memo(({ date }: Props) => {
     }, [])
 
     const addTaskClickHandler = useCallback(() => {
-        setTasks(prev => [
-            ...prev,
+        setTasks(prevTasks => [
+            ...prevTasks,
             {
                 title: inputValue,
                 id: new Date().toISOString(),
@@ -40,8 +40,8 @@ export const Tasks = memo(({ date }: Props) => {
     const checkBoxHandler = useCallback(
         (taskId: string) => (e: ChangeEvent<HTMLInputElement>) => {
             e.stopPropagation()
-            setTasks(prev => [
-                ...prev.filter(el => el.id !== taskId),
+            setTasks(prevTasks => [
+                ...prevTasks.filter(prevTask => prevTask.id !== taskId),
                 {
                     ...(tasks.find(({ id }) => id === taskId) as Task),
                     completed: e.target.checked,
@@ -54,15 +54,15 @@ export const Tasks = memo(({ date }: Props) => {
     const removeTask = useCallback(
         (taskId: string) => (e: React.MouseEvent<HTMLDivElement>) => {
             e.stopPropagation()
-            setTasks(prev => [...prev.filter(({ id }) => id !== taskId)])
+            setTasks(prevTasks => [...prevTasks.filter(({ id }) => id !== taskId)])
         },
         [tasks]
     )
 
+    useSetTasksToLocalstorage(tasks, date, tasksPickerService)
     useEffect(() => {
         setTasks(getTasksFromLocalStorage()[date] ? getTasksFromLocalStorage()[date].tasks : [])
     }, [date])
-    useSetTasksToLocalstorage(tasks, date, tasksPickerService)
 
     return (
         <>

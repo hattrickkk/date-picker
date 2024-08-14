@@ -77,11 +77,11 @@ export const Calendar = memo(
             }
         }
 
-        const setNextYear = useCallback(() => setYear(prevValue => prevValue + 1), [])
-        const setPrevYear = useCallback(() => setYear(prevValue => prevValue - 1), [])
+        const setNextYear = useCallback(() => setYear(prevYear => prevYear + 1), [])
+        const setPrevYear = useCallback(() => setYear(prevYear => prevYear - 1), [])
 
-        const setNextYears = useCallback(() => setYear(prevValue => prevValue + CALENDAR_YEARS_COUNT), [])
-        const setPrevYears = useCallback(() => setYear(prevValue => prevValue - CALENDAR_YEARS_COUNT), [])
+        const setNextYears = useCallback(() => setYear(prevYear => prevYear + CALENDAR_YEARS_COUNT), [])
+        const setPrevYears = useCallback(() => setYear(prevYear => prevYear - CALENDAR_YEARS_COUNT), [])
 
         const yearClickHandler = useCallback(() => {
             openYearPicker()

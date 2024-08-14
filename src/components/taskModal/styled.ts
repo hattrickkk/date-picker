@@ -4,9 +4,9 @@ import * as colors from '@constants/colors'
 
 export const Modal = styled.div`
     position: absolute;
-    right: -100%;
+    left: 260px;
     width: 240px;
-    top: 55px;
+    top: 50px;
     height: 267px;
     padding: 10px 15px;
     border: 1px solid ${colors.BORDER_GRAY};

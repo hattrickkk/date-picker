@@ -7,7 +7,7 @@ const meta = {
     title: 'Example/Datepicker',
     component: Datepicker,
     argTypes: {
-        highlightWeekends: {
+        isHighlightWeekends: {
             name: 'Highlight weekends',
             type: 'boolean',
             description: 'Highlight weekends or not',
@@ -75,7 +75,7 @@ export const Default: Story = {}
 
 export const WithWeekends: Story = {
     args: {
-        highlightWeekends: true,
+        isHighlightWeekends: true,
     },
 }
 

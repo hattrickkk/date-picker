@@ -8,20 +8,20 @@ import { StyledArrow, StyledHeader } from './styled'
 type Props = {
     nextArrowClick: VoidFunction
     prevArrowClick: VoidFunction
-    nextArrowDisable: boolean
-    prevArrowDisable: boolean
+    isNextArrowDisable: boolean
+    isPrevArrowDisable: boolean
     children?: ReactElement
 }
 
 export const Header = memo(
-    ({ nextArrowClick, prevArrowClick, nextArrowDisable, prevArrowDisable, children }: Props) => (
+    ({ nextArrowClick, prevArrowClick, isNextArrowDisable, isPrevArrowDisable, children }: Props) => (
         <StyledHeader>
             <Flex $alignitems='center'>
-                <StyledArrow $disable={prevArrowDisable} onClick={prevArrowClick} data-testid='prev-arrow'>
+                <StyledArrow $disable={isPrevArrowDisable} onClick={prevArrowClick} data-testid='prev-arrow'>
                     <Arrow />
                 </StyledArrow>
                 {children}
-                <StyledArrow $disable={nextArrowDisable} onClick={nextArrowClick} data-testid='next-arrow'>
+                <StyledArrow $disable={isNextArrowDisable} onClick={nextArrowClick} data-testid='next-arrow'>
                     <Arrow isNext />
                 </StyledArrow>
             </Flex>

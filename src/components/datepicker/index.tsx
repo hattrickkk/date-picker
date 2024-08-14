@@ -16,17 +16,17 @@ import { useOutsideClick } from '@utils/hooks/useOutsideClick'
 import { StyledDatepicker, StyledWrapper } from './styled'
 
 type Props = {
-    highlightWeekends?: boolean
+    isHighlightWeekends?: boolean
     isFromInput?: boolean
-    rangePicker?: boolean
-    taskPicker?: boolean
+    isRangePicker?: boolean
+    isTaskPicker?: boolean
 }
 
 const Datepicker = ({
-    highlightWeekends = false,
+    isHighlightWeekends = false,
     isFromInput = false,
-    rangePicker = false,
-    taskPicker = false,
+    isRangePicker = false,
+    isTaskPicker = false,
 }: Props) => {
     const { isOpen: isDatePickerOpen, open: openDatePicker, close: closeDatePicker } = useOpen()
 
@@ -48,16 +48,16 @@ const Datepicker = ({
                     ref={inputRef}
                     setSelectedDate={setSelectedDate}
                     isFromInput={isFromInput}
-                    rangePicker={rangePicker}
+                    isRangePicker={isRangePicker}
                 />
-                <StyledWrapper $isOpen={isDatePickerOpen} $rangePicker={rangePicker} ref={calendarRef}>
+                <StyledWrapper $isOpen={isDatePickerOpen} $rangePicker={isRangePicker} ref={calendarRef}>
                     <Calendar
-                        highlightWeekends={highlightWeekends}
+                        isHighlightWeekends={isHighlightWeekends}
                         selectedDate={selectedDate}
                         setSelectedDate={setSelectedDate}
                         isFromInput={isFromInput}
-                        rangePicker={rangePicker}
-                        taskPicker={taskPicker}
+                        isRangePicker={isRangePicker}
+                        isTaskPicker={isTaskPicker}
                         isDatePickerOpen={isDatePickerOpen}
                     />
                 </StyledWrapper>

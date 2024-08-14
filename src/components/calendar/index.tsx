@@ -23,23 +23,23 @@ import { useOpen } from '@utils/hooks/useOpen'
 import { Clear, StyledCalendar, StyledText, Wrapper } from './styled'
 
 type Props = {
-    highlightWeekends: boolean
+    isHighlightWeekends: boolean
     selectedDate: number | null
     setSelectedDate: React.Dispatch<React.SetStateAction<number | null>>
     isFromInput: boolean
-    rangePicker: boolean
-    taskPicker: boolean
+    isRangePicker: boolean
+    isTaskPicker: boolean
     isDatePickerOpen: boolean
 }
 
 export const Calendar = memo(
     ({
-        highlightWeekends,
+        isHighlightWeekends,
         selectedDate,
         setSelectedDate,
         isFromInput,
-        rangePicker,
-        taskPicker,
+        isRangePicker,
+        isTaskPicker,
         isDatePickerOpen,
     }: Props) => {
         const { minYear, maxYear } = useContext(WithRestrictionsContext)
@@ -50,18 +50,18 @@ export const Calendar = memo(
         const { isOpen: isYearPickerOpen, open: openYearPicker, close: closeYearPicker } = useOpen()
 
         const { tasksPickerService } = useContext(WithTasksContext)
-        const taskDays = taskPicker ? Object.keys(tasksPickerService.getTasks()) : []
+        const taskDays = isTaskPicker ? Object.keys(tasksPickerService.getTasks()) : []
         const { date, setInputValue } = useContext(WithUserDateRedirectContext)
 
         const next = () => {
             if (month === LAST_MONTH) {
                 setMonth(FIRST_MONTH)
                 setYear(year + 1)
-                if (!rangePicker)
+                if (!isRangePicker)
                     setInputValue(selectedDate ? getDateforInput(selectedDate, FIRST_MONTH + 1, year + 1) : '')
             } else {
                 setMonth(month + 1)
-                if (!rangePicker) setInputValue(selectedDate ? getDateforInput(selectedDate, month + 2, year) : '')
+                if (!isRangePicker) setInputValue(selectedDate ? getDateforInput(selectedDate, month + 2, year) : '')
             }
         }
 
@@ -69,11 +69,11 @@ export const Calendar = memo(
             if (month === FIRST_MONTH) {
                 setMonth(LAST_MONTH)
                 setYear(year - 1)
-                if (!rangePicker)
+                if (!isRangePicker)
                     setInputValue(selectedDate ? getDateforInput(selectedDate, LAST_MONTH + 1, year - 1) : '')
             } else {
                 setMonth(month - 1)
-                if (!rangePicker) setInputValue(selectedDate ? getDateforInput(selectedDate, month, year) : '')
+                if (!isRangePicker) setInputValue(selectedDate ? getDateforInput(selectedDate, month, year) : '')
             }
         }
 
@@ -107,15 +107,15 @@ export const Calendar = memo(
                     if (day < HALF_OF_THE_MONTH) {
                         next()
                         ++monthToInput
-                        if (rangePicker) setRange(year, month + 1, day)
+                        if (isRangePicker) setRange(year, month + 1, day)
                     } else {
                         prev()
                         --monthToInput
-                        if (rangePicker) setRange(year, month - 1, day)
+                        if (isRangePicker) setRange(year, month - 1, day)
                     }
-                    if (!rangePicker) setSelectedDate(day)
+                    if (!isRangePicker) setSelectedDate(day)
                 } else {
-                    rangePicker ? setRange(year, month, day) : setSelectedDate(selectedDate === day ? null : day)
+                    isRangePicker ? setRange(year, month, day) : setSelectedDate(selectedDate === day ? null : day)
                 }
                 setInputValue(getDateforInput(day, monthToInput, year))
             }
@@ -125,30 +125,30 @@ export const Calendar = memo(
                 if (date.month !== month || date.year !== year || date.day !== selectedDate) {
                     setYear(date.year)
                     setMonth(date.month - 1)
-                    setSelectedDate(rangePicker ? null : date.day)
+                    setSelectedDate(isRangePicker ? null : date.day)
                 }
-                if (rangePicker) {
+                if (isRangePicker) {
                     setRange(date.year, date.month - 1, date.day)
                 }
             }
         }, [date])
 
         const clearClickHandler = useCallback(() => {
-            if (rangePicker) {
+            if (isRangePicker) {
                 setRangeEnd(null)
                 setRangeStart(null)
                 setInputValue('')
             }
         }, [])
 
-        const yearPickerNextArrowDisable = maxYear - year <= CALENDAR_YEARS_COUNT
-        const yearPickerPrevArrowDisable = year - minYear <= 0
-        const calendarNextArrowDisable = year >= maxYear && month === LAST_MONTH
-        const calendarPrevArrowDisable = year <= minYear && month === FIRST_MONTH
+        const isYearPickerNextArrowDisable = maxYear - year <= CALENDAR_YEARS_COUNT
+        const isYearPickerPrevArrowDisable = year - minYear <= 0
+        const isCalendarNextArrowDisable = year >= maxYear && month === LAST_MONTH
+        const isCalendarPrevArrowDisable = year <= minYear && month === FIRST_MONTH
 
         return (
             <StyledCalendar>
-                {taskPicker && isDatePickerOpen && selectedDate && (
+                {isTaskPicker && isDatePickerOpen && selectedDate && (
                     <TaskModal year={year} day={selectedDate} month={month + 1} />
                 )}
                 {isMonthPickerOpen && (
@@ -156,15 +156,15 @@ export const Calendar = memo(
                         <Header
                             nextArrowClick={setNextYear}
                             prevArrowClick={setPrevYear}
-                            nextArrowDisable={year >= maxYear}
-                            prevArrowDisable={year <= minYear}
+                            isNextArrowDisable={year >= maxYear}
+                            isPrevArrowDisable={year <= minYear}
                         >
                             <StyledText onClick={openYearPicker}>{year}</StyledText>
                         </Header>
                         <MonthPicker
                             setMonth={setMonth}
                             closeMonthPicker={closeMonthPicker}
-                            rangePicker={rangePicker}
+                            isRangePicker={isRangePicker}
                         />
                     </Wrapper>
                 )}
@@ -173,14 +173,14 @@ export const Calendar = memo(
                         <Header
                             nextArrowClick={setNextYears}
                             prevArrowClick={setPrevYears}
-                            nextArrowDisable={yearPickerNextArrowDisable}
-                            prevArrowDisable={yearPickerPrevArrowDisable}
+                            isNextArrowDisable={isYearPickerNextArrowDisable}
+                            isPrevArrowDisable={isYearPickerPrevArrowDisable}
                         />
                         <YearPicker
                             setYear={setYear}
                             closeYearPicker={closeYearPicker}
                             year={year}
-                            rangePicker={rangePicker}
+                            isRangePicker={isRangePicker}
                         />
                     </Wrapper>
                 )}
@@ -188,8 +188,8 @@ export const Calendar = memo(
                 <Header
                     nextArrowClick={next}
                     prevArrowClick={prev}
-                    nextArrowDisable={calendarNextArrowDisable}
-                    prevArrowDisable={calendarPrevArrowDisable}
+                    isNextArrowDisable={isCalendarNextArrowDisable}
+                    isPrevArrowDisable={isCalendarPrevArrowDisable}
                 >
                     <Flex $alignitems='center'>
                         <StyledText onClick={openMonthPicker} data-testid='month'>
@@ -204,7 +204,7 @@ export const Calendar = memo(
                 <Flex $flexwrap='wrap'>
                     <PrevDays month={month} year={year} minYear={minYear} onClick={cellClick} taskDays={taskDays} />
                     <CurrentDays
-                        isHighlightWeekends={highlightWeekends}
+                        isHighlightWeekends={isHighlightWeekends}
                         month={month}
                         year={year}
                         onClick={cellClick}
@@ -213,7 +213,7 @@ export const Calendar = memo(
                     />
                     <NextDays month={month} year={year} onClick={cellClick} maxYear={maxYear} taskDays={taskDays} />
                 </Flex>
-                {rangePicker && <Clear onClick={clearClickHandler}>Clear</Clear>}
+                {isRangePicker && <Clear onClick={clearClickHandler}>Clear</Clear>}
             </StyledCalendar>
         )
     }

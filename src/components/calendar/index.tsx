@@ -152,7 +152,7 @@ export const Calendar = memo(
                     <TaskModal year={year} day={selectedDate} month={month + 1} />
                 )}
                 {isMonthPickerOpen && (
-                    <Wrapper>
+                    <Wrapper data-testid='monthPicker'>
                         <Header
                             nextArrowClick={setNextYear}
                             prevArrowClick={setPrevYear}
@@ -169,7 +169,7 @@ export const Calendar = memo(
                     </Wrapper>
                 )}
                 {isYearPickerOpen && (
-                    <Wrapper>
+                    <Wrapper data-testid='yearPicker'>
                         <Header
                             nextArrowClick={setNextYears}
                             prevArrowClick={setPrevYears}
@@ -192,8 +192,12 @@ export const Calendar = memo(
                     prevArrowDisable={calendarPrevArrowDisable}
                 >
                     <Flex $alignitems='center'>
-                        <StyledText onClick={openMonthPicker}> {MONTHS[month]} </StyledText>
-                        <StyledText onClick={yearClickHandler}> {year}</StyledText>
+                        <StyledText onClick={openMonthPicker} data-testid='month'>
+                            {MONTHS[month]}
+                        </StyledText>
+                        <StyledText onClick={yearClickHandler} data-testid='year'>
+                            {year}
+                        </StyledText>
                     </Flex>
                 </Header>
                 <Weakdays />

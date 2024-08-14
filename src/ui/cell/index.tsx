@@ -44,6 +44,7 @@ export const Cell = memo(
             $holidaysColor={holidaysColor}
             $hasTask={hasTask}
             onClick={onClick}
+            data-testid='cell'
         >
             <Flex $justifycontent='center' $alignitems='center'>
                 <span> {day}</span>

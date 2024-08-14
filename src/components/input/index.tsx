@@ -26,12 +26,15 @@ export const Input = forwardRef<HTMLInputElement, Props>(
         const { minYear, maxYear } = useContext(WithRestrictionsContext)
         const { setRangeEnd, setRangeStart } = useContext(WithRangeContext)
 
-        const onInputChange = useCallback(({ target: { value } }: ChangeEvent<HTMLInputElement>) => {
-            setError('')
-            const condition = value.length <= 1 ? '' : inputValue
-            const re = new RegExp(NUMS_REGEX)
-            setInputValue(re.test(value) ? value : condition)
-        }, [])
+        const onInputChange = useCallback(
+            ({ target: { value } }: ChangeEvent<HTMLInputElement>) => {
+                setError('')
+                const condition = value.length <= 1 ? '' : inputValue
+                const re = new RegExp(NUMS_REGEX)
+                setInputValue(re.test(value) ? value : condition)
+            },
+            [inputValue]
+        )
 
         const handleKeyDown = ({ key }: React.KeyboardEvent<HTMLInputElement>) => {
             if (key === 'Enter') {
@@ -66,6 +69,7 @@ export const Input = forwardRef<HTMLInputElement, Props>(
                         <CalendarIcon />
                     </StyledCalendarIcon>
                     <StyledInput
+                        data-testid='input'
                         type='text'
                         placeholder='DD/MM/YYYY'
                         value={inputValue}
@@ -77,7 +81,7 @@ export const Input = forwardRef<HTMLInputElement, Props>(
                         $isError={!!error && !new RegExp(DATE_REGEX).test(inputValue)}
                     />
                     {!!inputValue && (
-                        <StyledCloseIcon onClick={closeIconClickHandler}>
+                        <StyledCloseIcon onClick={closeIconClickHandler} data-testid='remove-icon'>
                             <CloseIcon />
                         </StyledCloseIcon>
                     )}

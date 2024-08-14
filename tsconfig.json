@@ -4,10 +4,10 @@
         "paths": {
             "@components/*": ["src/components/*"],
             "@utils/*": ["src/utils/*"],
-            "@constants/*": ["src/constants/*"], 
-            "@ui/*": ["src/ui/*"], 
-            "@styles/*": ["src/styles/*"], 
-            "@customTypes/*": ["src/customTypes/*"], 
+            "@constants/*": ["src/constants/*"],
+            "@ui/*": ["src/ui/*"],
+            "@styles/*": ["src/styles/*"],
+            "@customTypes/*": ["src/customTypes/*"]
         },
         "target": "es5",
         "outDir": "lib",
@@ -28,6 +28,7 @@
         "sourceMap": true,
         "noFallthroughCasesInSwitch": true,
         "rootDir": "src",
+        "types": ["jest", "@testing-library/jest-dom"]
     },
     "include": ["src/**/*", "stories"],
     "exclude": ["node_modules", "lib", "stories"]

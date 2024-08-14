@@ -42,7 +42,7 @@ const Datepicker = ({
             <GlobalStyles />
             <NullStyles />
 
-            <StyledDatepicker id='date-picker'>
+            <StyledDatepicker id='date-picker' data-testid='date-picker'>
                 <Input
                     onClick={inputClick}
                     ref={inputRef}

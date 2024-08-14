@@ -10,11 +10,11 @@ const Rangepicker = () => (
     <Wrapper>
         <Flex $flexdirection='column'>
             <Text>From:</Text>
-            <Datepicker rangePicker isFromInput />
+            <Datepicker isRangePicker isFromInput />
         </Flex>
         <Flex $flexdirection='column'>
             <Text>To:</Text>
-            <Datepicker rangePicker />
+            <Datepicker isRangePicker />
         </Flex>
     </Wrapper>
 )

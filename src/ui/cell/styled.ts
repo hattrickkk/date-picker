@@ -11,6 +11,7 @@ type Props = {
     $disable: boolean
     $isHoliday: boolean
     $holidaysColor: string
+    $hasTask: boolean
 }
 
 export const StyledCell = styled.div<Props>`
@@ -44,6 +45,23 @@ export const StyledCell = styled.div<Props>`
             }
             background-color: ${$holidaysColor};
         `}
+
+    ${({ $hasTask }) =>
+        $hasTask &&
+        `position: relative;
+
+        &:before{
+            content: '';
+            width: 4px;
+            height: 4px;
+            border-radius: 10px;
+            background-color: ${colors.LIGHT_BLUE};
+            position: absolute;
+            right:4px;
+            top:4px;
+        }
+
+    `}
 
     ${({ $isSelected }) =>
         $isSelected &&

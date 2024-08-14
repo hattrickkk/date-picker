@@ -8,16 +8,16 @@ import { WithUserDateRedirectContext } from '@utils/hocs/withUserDateRedirect'
 type Props = {
     setMonth: React.Dispatch<React.SetStateAction<number>>
     closeMonthPicker: VoidFunction
-    rangePicker: boolean
+    isRangePicker: boolean
 }
 
-export const MonthPicker = memo(({ setMonth, closeMonthPicker, rangePicker }: Props) => {
+export const MonthPicker = memo(({ setMonth, closeMonthPicker, isRangePicker }: Props) => {
     const { inputValue, setInputValue } = useContext(WithUserDateRedirectContext)
     const itemClickHandler = useCallback(
         (element: number) => (e: React.MouseEvent<HTMLButtonElement>) => {
             e.stopPropagation()
             setMonth(element)
-            if (inputValue && !rangePicker) {
+            if (inputValue && !isRangePicker) {
                 const [day, _, year] = inputValue.split('/').map(value => +value)
                 setInputValue(getDateforInput(day, element + 1, year))
             }

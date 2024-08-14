@@ -1,4 +1,4 @@
-import React, { ChangeEvent, forwardRef, useCallback, useContext, useState } from 'react'
+import React, { ChangeEvent, forwardRef, useCallback, useContext, useMemo, useState } from 'react'
 
 import { DATE_REGEX, NUMS_REGEX } from '@constants/magicValues'
 import { CalendarIcon } from '@ui/calendarIcon'
@@ -15,28 +15,33 @@ type Props = {
     onClick: VoidFunction
     setSelectedDate: React.Dispatch<React.SetStateAction<number | null>>
     isFromInput: boolean
-    rangePicker: boolean
+    isRangePicker: boolean
 }
 
 export const Input = forwardRef<HTMLInputElement, Props>(
-    ({ onClick, setSelectedDate, isFromInput, rangePicker }: Props, ref) => {
+    ({ onClick, setSelectedDate, isFromInput, isRangePicker }: Props, ref) => {
         const [error, setError] = useState('')
 
         const { setDate, inputValue, setInputValue } = useContext(WithUserDateRedirectContext)
         const { minYear, maxYear } = useContext(WithRestrictionsContext)
         const { setRangeEnd, setRangeStart } = useContext(WithRangeContext)
 
-        const onInputChange = useCallback(({ target: { value } }: ChangeEvent<HTMLInputElement>) => {
-            setError('')
-            const condition = value.length <= 1 ? '' : inputValue
-            const re = new RegExp(NUMS_REGEX)
-            setInputValue(re.test(value) ? value : condition)
-        }, [])
+        const isInputValueValid = useMemo(() => new RegExp(DATE_REGEX).test(inputValue), [inputValue])
+        const isError = !isInputValueValid && !!error
+
+        const onInputChange = useCallback(
+            ({ target: { value } }: ChangeEvent<HTMLInputElement>) => {
+                setError('')
+                const condition = value.length <= 1 ? '' : inputValue
+                const regex = new RegExp(NUMS_REGEX)
+                setInputValue(regex.test(value) ? value : condition)
+            },
+            [inputValue]
+        )
 
         const handleKeyDown = ({ key }: React.KeyboardEvent<HTMLInputElement>) => {
             if (key === 'Enter') {
-                const regex = new RegExp(DATE_REGEX)
-                if (regex.test(inputValue)) {
+                if (isInputValueValid) {
                     const {
                         date: [day, month, year],
                         isValid,
@@ -54,7 +59,7 @@ export const Input = forwardRef<HTMLInputElement, Props>(
             setInputValue('')
             setError('')
             setSelectedDate(null)
-            if (rangePicker) {
+            if (isRangePicker) {
                 isFromInput ? setRangeStart(null) : setRangeEnd(null)
             }
         }, [])
@@ -74,7 +79,7 @@ export const Input = forwardRef<HTMLInputElement, Props>(
                         onChange={onInputChange}
                         onKeyDown={handleKeyDown}
                         maxLength={10}
-                        $isError={!!error}
+                        $isError={isError}
                     />
                     {!!inputValue && (
                         <StyledCloseIcon onClick={closeIconClickHandler}>
@@ -82,7 +87,7 @@ export const Input = forwardRef<HTMLInputElement, Props>(
                         </StyledCloseIcon>
                     )}
                 </StyledWrapper>
-                <StyledError>{error}</StyledError>
+                {isError && <StyledError>{error}</StyledError>}
             </>
         )
     }

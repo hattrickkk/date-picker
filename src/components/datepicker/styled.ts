@@ -4,6 +4,7 @@ import * as colors from '@constants/colors'
 
 export const StyledDatepicker = styled.div`
     max-width: 250px;
+    position: relative;
 `
 export const StyledWrapper = styled.div<{ $isOpen: boolean; $rangePicker: boolean }>`
     height: 0;

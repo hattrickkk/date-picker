@@ -10,16 +10,16 @@ type Props = {
     setYear: React.Dispatch<React.SetStateAction<number>>
     closeYearPicker: VoidFunction
     year: number
-    rangePicker: boolean
+    isRangePicker: boolean
 }
 
-export const YearPicker = memo(({ setYear, closeYearPicker, year, rangePicker }: Props) => {
+export const YearPicker = memo(({ setYear, closeYearPicker, year, isRangePicker }: Props) => {
     const { inputValue, setInputValue } = useContext(WithUserDateRedirectContext)
     const itemClickHandler = useCallback(
         (element: number) => (e: React.MouseEvent<HTMLButtonElement>) => {
             e.stopPropagation()
             setYear(element)
-            if (inputValue && !rangePicker) {
+            if (inputValue && !isRangePicker) {
                 const [day, month] = inputValue.split('/').map(value => +value)
                 setInputValue(getDateforInput(day, month, element))
             }

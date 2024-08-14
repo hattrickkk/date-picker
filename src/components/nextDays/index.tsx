@@ -5,6 +5,7 @@ import { CellClick } from '@customTypes/cellClickType'
 import { Cell } from '@ui/cell'
 import { getCountOfDays } from '@utils/getCountOfDays'
 import { getCurrent } from '@utils/getCurrent'
+import { getDateforInput } from '@utils/getDateForInput'
 import { getDayOfTheWeek } from '@utils/getDayOfTheWeek'
 import { getNumbersFromTo } from '@utils/getNumbersFromTo'
 import { WithHolidaysContext } from '@utils/hocs/withHolidays'
@@ -18,9 +19,10 @@ type Props = {
     year: number
     maxYear: number
     onClick: CellClick
+    taskDays: string[]
 }
 
-export const NextDays = memo(({ month, year, maxYear, onClick }: Props) => {
+export const NextDays = memo(({ month, year, maxYear, onClick, taskDays }: Props) => {
     const [curMonth, curYear, curDay] = getCurrent()
 
     const daysInCurentMonth = getCountOfDays(year, month + 1)
@@ -48,6 +50,7 @@ export const NextDays = memo(({ month, year, maxYear, onClick }: Props) => {
                     }
                     holidaysColor={datePickerService.getHolidaysColor()}
                     range={getRangeValue(rangeStart, rangeEnd, year, month + 1, element)}
+                    hasTask={taskDays.includes(getDateforInput(element, month + 2, curYear))}
                     onClick={onClick(element, false)}
                 />
             ))}

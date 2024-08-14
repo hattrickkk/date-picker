@@ -1,5 +1,6 @@
 import * as colors from '@constants/colors'
 import { Holiday } from '@customTypes/holidays'
+import { Task, Tasks } from '@customTypes/task'
 
 export class DatePickerService {
     private holidays: Holiday[] = []
@@ -7,6 +8,8 @@ export class DatePickerService {
     private holidaysColor = colors.HOLIDAYS_COLOR
 
     private hideHolidays = true
+
+    private tasks: Tasks = {}
 
     getHolidays() {
         return this.holidays
@@ -30,5 +33,17 @@ export class DatePickerService {
 
     setHideHolidays(value: boolean) {
         this.hideHolidays = value
+    }
+
+    getTasks() {
+        return this.tasks
+    }
+
+    getTasksByDate(date: string) {
+        return this.tasks[date] ? this.tasks[date].tasks : []
+    }
+
+    setTasks(tasks: Tasks) {
+        this.tasks = tasks
     }
 }

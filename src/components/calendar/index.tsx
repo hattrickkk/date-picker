@@ -149,7 +149,7 @@ export const Calendar = memo(
         return (
             <StyledCalendar>
                 {isTaskPicker && isDatePickerOpen && selectedDate && (
-                    <TaskModal year={year} day={selectedDate} month={month + 1} />
+                    <TaskModal year={year} day={selectedDate} month={month + 1} setSelectedDate={setSelectedDate} />
                 )}
                 {isMonthPickerOpen && (
                     <Wrapper data-testid='monthPicker'>

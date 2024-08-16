@@ -2,7 +2,7 @@ import React, { createContext, useMemo, ComponentType, ReactElement } from 'reac
 
 import * as colors from '@constants/colors'
 import { Holiday } from '@customTypes/holidays'
-import { DatePickerService } from '@utils/DatePickerService'
+import { DatePickerService } from '@utils/datePickerService'
 import { useHolidays } from '@utils/hooks/useHolidays'
 
 type HocProps = {

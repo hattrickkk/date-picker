@@ -71,6 +71,7 @@ export const Input = forwardRef<HTMLInputElement, Props>(
                         <CalendarIcon />
                     </StyledCalendarIcon>
                     <StyledInput
+                        data-testid='input'
                         type='text'
                         placeholder='DD/MM/YYYY'
                         value={inputValue}
@@ -82,7 +83,7 @@ export const Input = forwardRef<HTMLInputElement, Props>(
                         $isError={isError}
                     />
                     {!!inputValue && (
-                        <StyledCloseIcon onClick={closeIconClickHandler}>
+                        <StyledCloseIcon onClick={closeIconClickHandler} data-testid='remove-icon'>
                             <CloseIcon />
                         </StyledCloseIcon>
                     )}

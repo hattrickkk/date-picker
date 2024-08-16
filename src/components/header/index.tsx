@@ -17,11 +17,11 @@ export const Header = memo(
     ({ nextArrowClick, prevArrowClick, isNextArrowDisable, isPrevArrowDisable, children }: Props) => (
         <StyledHeader>
             <Flex $alignitems='center'>
-                <StyledArrow $disable={isPrevArrowDisable} onClick={prevArrowClick}>
+                <StyledArrow $disable={isPrevArrowDisable} onClick={prevArrowClick} data-testid='prev-arrow'>
                     <Arrow />
                 </StyledArrow>
                 {children}
-                <StyledArrow $disable={isNextArrowDisable} onClick={nextArrowClick}>
+                <StyledArrow $disable={isNextArrowDisable} onClick={nextArrowClick} data-testid='next-arrow'>
                     <Arrow isNext />
                 </StyledArrow>
             </Flex>

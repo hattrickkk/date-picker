@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 
 import { TASKS_KEY } from '@constants/magicValues'
 import { Task, Tasks } from '@customTypes/task'
-import { DatePickerService } from '@utils/DatePickerService'
+import { DatePickerService } from '@utils/datePickerService'
 import { getTasksFromLocalStorage } from '@utils/getTasksFromLocalStorage'
 
 export const useSetTasksToLocalstorage = (tasks: Task[], date: string, tasksPickerService: DatePickerService) => {

@@ -1,7 +1,6 @@
 import React, { createContext, useMemo, ComponentType, ReactElement, useState } from 'react'
 
 import { DateType } from '@customTypes/date'
-import { DatePickerService } from '@utils/DatePickerService'
 
 type WithRangeContextType = {
     rangeStart: DateType | null

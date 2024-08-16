@@ -1,6 +1,6 @@
 import React, { createContext, useMemo, ComponentType, ReactElement } from 'react'
 
-import { DatePickerService } from '@utils/DatePickerService'
+import { DatePickerService } from '@utils/datePickerService'
 import { getTasksFromLocalStorage } from '@utils/getTasksFromLocalStorage'
 
 type WithTasksContextType = {

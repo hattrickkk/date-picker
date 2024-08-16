@@ -1,6 +1,6 @@
 import * as colors from '@constants/colors'
 import { Holiday } from '@customTypes/holidays'
-import { Task, Tasks } from '@customTypes/task'
+import { Tasks } from '@customTypes/task'
 
 export class DatePickerService {
     private holidays: Holiday[] = []

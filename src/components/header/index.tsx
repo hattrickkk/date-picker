@@ -1,7 +1,8 @@
 import React, { memo, ReactElement } from 'react'
 
 import { Flex } from '@styles/flexStyles'
-import { Arrow } from '@ui/arrow'
+import { NextArrow } from '@ui/nextArrow'
+import { PrevArrow } from '@ui/prevArrow'
 
 import { StyledArrow, StyledHeader } from './styled'
 
@@ -18,11 +19,11 @@ export const Header = memo(
         <StyledHeader>
             <Flex $alignitems='center'>
                 <StyledArrow $disable={isPrevArrowDisable} onClick={prevArrowClick} data-testid='prev-arrow'>
-                    <Arrow />
+                    <PrevArrow />
                 </StyledArrow>
                 {children}
                 <StyledArrow $disable={isNextArrowDisable} onClick={nextArrowClick} data-testid='next-arrow'>
-                    <Arrow isNext />
+                    <NextArrow />
                 </StyledArrow>
             </Flex>
         </StyledHeader>

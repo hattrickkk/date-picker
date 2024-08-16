@@ -16,9 +16,9 @@ type Props = {
 
 export const TaskModal = ({ day, month, year, setSelectedDate }: Props) => {
     const container = document.getElementById('date-picker')
-    if (container === null) return null
+    if (!container) return null
 
-    const date = useMemo(() => getDateforInput(day, month, year), [day, month, year])
+    const date = useMemo(() => getDateforInput({ day, month, year }), [day, month, year])
 
     const closeIconHandler = useCallback(() => setSelectedDate(null), [])
 

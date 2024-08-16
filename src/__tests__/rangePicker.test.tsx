@@ -42,20 +42,17 @@ describe('rangePicker renders correctly', () => {
 
         within(fromInput)
             .getAllByTestId('cell')
-            .forEach(element => {
-                if (
-                    +(element.textContent as string) > startRange.day &&
-                    +(element.textContent as string) < endRange.day
-                ) {
-                    expect(
-                        getRangeValue(
-                            startRange,
-                            endRange,
-                            startRange.year,
-                            startRange.month,
-                            +(element.textContent as string)
-                        )
-                    ).toBe('middle')
+            .forEach(({ textContent }) => {
+                if (textContent) {
+                    if (+textContent > startRange.day && +textContent < endRange.day) {
+                        expect(
+                            getRangeValue(startRange, endRange, {
+                                year: startRange.year,
+                                month: startRange.month,
+                                day: +textContent,
+                            })
+                        ).toBe('middle')
+                    }
                 }
             })
 

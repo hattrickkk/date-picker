@@ -46,7 +46,7 @@ export const Input = forwardRef<HTMLInputElement, Props>(
                         date: [day, month, year],
                         isValid,
                     } = validateInput(inputValue, maxYear, minYear)
-                    setInputValue(getDateforInput(day, month, year))
+                    setInputValue(getDateforInput({ day, month, year }))
                     isValid ? setDate({ day, month, year }) : setError('No such date exists')
                 } else {
                     setError('Invalid format')

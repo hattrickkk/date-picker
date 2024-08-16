@@ -1,7 +1,7 @@
 import React, { memo, useContext } from 'react'
 
 import { SATURDAY_INDEX, SUNDAY_INDEX } from '@constants/magicValues'
-import { CellClick } from '@customTypes/cellClickType'
+import { OnCellClick } from '@customTypes/cellClickType'
 import { Cell } from '@ui/cell'
 import { getCountOfDays } from '@utils/getCountOfDays'
 import { getCurrent } from '@utils/getCurrent'
@@ -17,7 +17,7 @@ type Props = {
     month: number
     year: number
     selectedDate: number | null
-    onClick: CellClick
+    onClick: OnCellClick
     isHighlightWeekends: boolean
     taskDays: string[]
 }
@@ -26,7 +26,7 @@ export const CurrentDays = memo(({ month, year, selectedDate, onClick, isHighlig
     const [curMonth, curYear, curDay] = getCurrent()
     const { datePickerService } = useContext(WithHolidaysContext)
 
-    const daysInCurentMonth = getCountOfDays(year, month + 1)
+    const daysInCurentMonth = getCountOfDays({ year, month: month + 1, day: 0 })
     const currentDays = getNumbersFromTo(1, daysInCurentMonth)
     const { rangeStart, rangeEnd } = useContext(WithRangeContext)
 
@@ -38,18 +38,18 @@ export const CurrentDays = memo(({ month, year, selectedDate, onClick, isHighlig
                     day={element}
                     isWeekend={
                         isHighlightWeekends &&
-                        (getDayOfTheWeek(year, month, element) === SUNDAY_INDEX ||
-                            getDayOfTheWeek(year, month, element) === SATURDAY_INDEX)
+                        (getDayOfTheWeek({ year, month, day: element }) === SUNDAY_INDEX ||
+                            getDayOfTheWeek({ year, month, day: element }) === SATURDAY_INDEX)
                     }
                     isSelected={selectedDate === index + 1}
                     isToday={element === curDay && month === curMonth && year === curYear}
                     isHoliday={
                         datePickerService.getHideHolidays() &&
-                        isHolidayToday(month + 1, element, datePickerService.getHolidays())
+                        isHolidayToday({ year, month: month + 1, day: element }, datePickerService.getHolidays())
                     }
                     holidaysColor={datePickerService.getHolidaysColor()}
-                    range={getRangeValue(rangeStart, rangeEnd, year, month, element)}
-                    hasTask={taskDays.includes(getDateforInput(element, month + 1, curYear))}
+                    range={getRangeValue(rangeStart, rangeEnd, { year, month, day: element })}
+                    hasTask={taskDays.includes(getDateforInput({ day: element, month: month + 1, year: curYear }))}
                     onClick={onClick(element)}
                 />
             ))}

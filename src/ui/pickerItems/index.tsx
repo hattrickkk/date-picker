@@ -1,6 +1,6 @@
 import React, { memo, useContext } from 'react'
 
-import { pickerItemClick } from '@customTypes/pickerItemClickType'
+import { OnPickerItemClick } from '@customTypes/pickerItemClickType'
 import { Flex } from '@styles/flexStyles'
 import { WithRestrictionsContext } from '@utils/hocs/withRestrictions'
 
@@ -8,7 +8,7 @@ import { Item, Wrapper } from './styled'
 
 type Props = {
     elements: (number | string)[]
-    onClick: pickerItemClick
+    onClick: OnPickerItemClick
 }
 
 export const PickerItems = memo(({ elements, onClick }: Props) => {

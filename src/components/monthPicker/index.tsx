@@ -18,8 +18,8 @@ export const MonthPicker = memo(({ setMonth, closeMonthPicker, isRangePicker }: 
             e.stopPropagation()
             setMonth(element)
             if (inputValue && !isRangePicker) {
-                const [day, _, year] = inputValue.split('/').map(value => +value)
-                setInputValue(getDateforInput(day, element + 1, year))
+                const [day, _, year] = inputValue.split('/').map(Number)
+                setInputValue(getDateforInput({ day, month: element + 1, year }))
             }
             closeMonthPicker()
         },

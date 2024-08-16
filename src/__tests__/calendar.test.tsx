@@ -13,8 +13,7 @@ const setSelectedDate = jest.fn()
 const selectedDate = 12
 const newSelectedDate = 10
 
-const currentYear = getCurrent()[1]
-const currentMonth = getCurrent()[0]
+const [currentMonth, currentYear] = getCurrent()
 
 const HolidaysContextCalue = {
     datePickerService: new DatePickerService(),

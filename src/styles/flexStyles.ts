@@ -10,8 +10,8 @@ type FlexPropsType = Partial<{
 
 export const Flex = styled.div<FlexPropsType>`
     display: flex;
-    flex-direction: ${props => props.$flexdirection || ' row'};
-    flex-wrap: ${props => props.$flexwrap || ' no-wrap'};
-    justify-content: ${props => props.$justifycontent || 'space-between'};
-    align-items: ${props => props.$alignitems || ' stretch'};
+    flex-direction: ${({ $flexdirection }) => $flexdirection || ' row'};
+    flex-wrap: ${({ $flexwrap }) => $flexwrap || ' no-wrap'};
+    justify-content: ${({ $justifycontent }) => $justifycontent || 'space-between'};
+    align-items: ${({ $alignitems }) => $alignitems || ' stretch'};
 `

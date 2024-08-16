@@ -53,29 +53,39 @@ export const Calendar = memo(
         const taskDays = isTaskPicker ? Object.keys(tasksPickerService.getTasks()) : []
         const { date, setInputValue } = useContext(WithUserDateRedirectContext)
 
-        const next = () => {
+        const next = useCallback(() => {
             if (month === LAST_MONTH) {
                 setMonth(FIRST_MONTH)
                 setYear(year + 1)
                 if (!isRangePicker)
-                    setInputValue(selectedDate ? getDateforInput(selectedDate, FIRST_MONTH + 1, year + 1) : '')
+                    setInputValue(
+                        selectedDate
+                            ? getDateforInput({ day: selectedDate, month: FIRST_MONTH + 1, year: year + 1 })
+                            : ''
+                    )
             } else {
                 setMonth(month + 1)
-                if (!isRangePicker) setInputValue(selectedDate ? getDateforInput(selectedDate, month + 2, year) : '')
+                if (!isRangePicker)
+                    setInputValue(selectedDate ? getDateforInput({ day: selectedDate, month: month + 2, year }) : '')
             }
-        }
+        }, [year, month, selectedDate])
 
-        const prev = () => {
+        const prev = useCallback(() => {
             if (month === FIRST_MONTH) {
                 setMonth(LAST_MONTH)
                 setYear(year - 1)
                 if (!isRangePicker)
-                    setInputValue(selectedDate ? getDateforInput(selectedDate, LAST_MONTH + 1, year - 1) : '')
+                    setInputValue(
+                        selectedDate
+                            ? getDateforInput({ day: selectedDate, month: LAST_MONTH + 1, year: year - 1 })
+                            : ''
+                    )
             } else {
                 setMonth(month - 1)
-                if (!isRangePicker) setInputValue(selectedDate ? getDateforInput(selectedDate, month, year) : '')
+                if (!isRangePicker)
+                    setInputValue(selectedDate ? getDateforInput({ day: selectedDate, month, year }) : '')
             }
-        }
+        }, [year, month, selectedDate])
 
         const setNextYear = useCallback(() => setYear(prevYear => prevYear + 1), [])
         const setPrevYear = useCallback(() => setYear(prevYear => prevYear - 1), [])
@@ -117,7 +127,7 @@ export const Calendar = memo(
                 } else {
                     isRangePicker ? setRange(year, month, day) : setSelectedDate(selectedDate === day ? null : day)
                 }
-                setInputValue(getDateforInput(day, monthToInput, year))
+                setInputValue(selectedDate === day ? '' : getDateforInput({ day, month: monthToInput, year }))
             }
 
         useEffect(() => {

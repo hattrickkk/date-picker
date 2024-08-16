@@ -20,8 +20,8 @@ export const YearPicker = memo(({ setYear, closeYearPicker, year, isRangePicker 
             e.stopPropagation()
             setYear(element)
             if (inputValue && !isRangePicker) {
-                const [day, month] = inputValue.split('/').map(value => +value)
-                setInputValue(getDateforInput(day, month, element))
+                const [day, month] = inputValue.split('/').map(Number)
+                setInputValue(getDateforInput({ day, month, year: element }))
             }
             closeYearPicker()
         },

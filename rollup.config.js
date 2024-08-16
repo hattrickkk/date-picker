@@ -9,7 +9,7 @@ import { defineConfig } from 'rollup'
 import peerDepsExternal from 'rollup-plugin-peer-deps-external'
 import typescript from 'rollup-plugin-typescript2'
 
-const isDev = process.env.NODE_ENV === 'development'
+const isProd = process.env.NODE_ENV === 'production'
 
 export default defineConfig({
     input: ['./src/index.ts'],
@@ -47,6 +47,6 @@ export default defineConfig({
                 { find: '@customTypes', replacement: resolve(__dirname, 'src/customTypes') },
             ],
         }),
-        isDev ? null : terser(),
+        isProd && terser(),
     ],
 })

@@ -1,9 +1,10 @@
+import { resolve } from 'path'
+
 import alias from '@rollup/plugin-alias'
 import babel from '@rollup/plugin-babel'
 import commonjs from '@rollup/plugin-commonjs'
 import resolvePlugin from '@rollup/plugin-node-resolve'
 import terser from '@rollup/plugin-terser'
-import { resolve } from 'path'
 import { defineConfig } from 'rollup'
 import peerDepsExternal from 'rollup-plugin-peer-deps-external'
 import typescript from 'rollup-plugin-typescript2'
@@ -26,13 +27,13 @@ export default defineConfig({
         peerDepsExternal(),
         resolvePlugin(),
         commonjs(),
+        typescript({
+            useTsconfigDeclarationDir: true,
+        }),
         babel({
             exclude: 'node_modules/**',
             babelHelpers: 'bundled',
             extensions: ['.js', '.jsx', '.ts', '.tsx'],
-        }),
-        typescript({
-            useTsconfigDeclarationDir: true,
         }),
 
         alias({

@@ -13,6 +13,7 @@ import { MONTHS } from '@constants/month'
 import { Flex } from '@styles/flexStyles'
 import { getCurrent } from '@utils/getCurrent'
 import { getDateforInput } from '@utils/getDateForInput'
+import { getValuesForInput } from '@utils/getValuesForInput'
 import { getYearForDatePicker } from '@utils/getYearForDatePicker'
 import { WithRangeContext } from '@utils/hocs/withRange'
 import { WithRestrictionsContext } from '@utils/hocs/withRestrictions'
@@ -113,21 +114,28 @@ export const Calendar = memo(
             (e: React.MouseEvent<HTMLDivElement>) => {
                 e.stopPropagation()
                 let monthToInput = month + 1
+                let yearToInput = year
                 if (!isCurrent) {
                     if (day < HALF_OF_THE_MONTH) {
                         next()
-                        ++monthToInput
+                        const [newMonth, newYear] = getValuesForInput(month, year, true)
+                        monthToInput = newMonth
+                        yearToInput = newYear
                         if (isRangePicker) setRange(year, month + 1, day)
                     } else {
                         prev()
-                        --monthToInput
+                        const [newMonth, newYear] = getValuesForInput(month, year, false)
+                        monthToInput = newMonth
+                        yearToInput = newYear
                         if (isRangePicker) setRange(year, month - 1, day)
                     }
                     if (!isRangePicker) setSelectedDate(day)
                 } else {
                     isRangePicker ? setRange(year, month, day) : setSelectedDate(selectedDate === day ? null : day)
                 }
-                setInputValue(selectedDate === day ? '' : getDateforInput({ day, month: monthToInput, year }))
+                setInputValue(
+                    selectedDate === day ? '' : getDateforInput({ day, month: monthToInput, year: yearToInput })
+                )
             }
 
         useEffect(() => {
@@ -172,6 +180,7 @@ export const Calendar = memo(
                             <StyledText onClick={openYearPicker}>{year}</StyledText>
                         </Header>
                         <MonthPicker
+                            year={year}
                             setMonth={setMonth}
                             closeMonthPicker={closeMonthPicker}
                             isRangePicker={isRangePicker}

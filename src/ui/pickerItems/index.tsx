@@ -20,7 +20,7 @@ export const PickerItems = memo(({ elements, onClick }: Props) => {
                     <Item
                         key={element}
                         $disable={+element < minYear || +element > maxYear}
-                        onClick={onClick(typeof element === 'string' ? index : +element)}
+                        onClick={onClick(typeof element === 'string' ? index : element)}
                     >
                         {element}
                     </Item>

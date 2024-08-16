@@ -25,7 +25,7 @@ export const YearPicker = memo(({ setYear, closeYearPicker, year, isRangePicker 
             }
             closeYearPicker()
         },
-        []
+        [inputValue]
     )
 
     const years = getNumbersFromTo(year, year + CALENDAR_YEARS_COUNT)

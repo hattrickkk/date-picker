@@ -1,6 +1,7 @@
 import React, { useCallback, useRef, useState } from 'react'
 
 import { Calendar } from '@components/calendar'
+import { ErrorBoundary } from '@components/errorBoundary'
 import { Input } from '@components/input'
 import { HOLIDAYS } from '@constants/holidays'
 import { GlobalStyles } from '@styles/global'
@@ -41,27 +42,28 @@ const Datepicker = ({
         <>
             <GlobalStyles />
             <NullStyles />
-
-            <StyledDatepicker id='date-picker' data-testid='date-picker'>
-                <Input
-                    onClick={inputClick}
-                    ref={inputRef}
-                    setSelectedDate={setSelectedDate}
-                    isFromInput={isFromInput}
-                    isRangePicker={isRangePicker}
-                />
-                <StyledWrapper $isOpen={isDatePickerOpen} $rangePicker={isRangePicker} ref={calendarRef}>
-                    <Calendar
-                        isHighlightWeekends={isHighlightWeekends}
-                        selectedDate={selectedDate}
+            <ErrorBoundary>
+                <StyledDatepicker id='date-picker' data-testid='date-picker'>
+                    <Input
+                        onClick={inputClick}
+                        ref={inputRef}
                         setSelectedDate={setSelectedDate}
                         isFromInput={isFromInput}
                         isRangePicker={isRangePicker}
-                        isTaskPicker={isTaskPicker}
-                        isDatePickerOpen={isDatePickerOpen}
                     />
-                </StyledWrapper>
-            </StyledDatepicker>
+                    <StyledWrapper $isOpen={isDatePickerOpen} $rangePicker={isRangePicker} ref={calendarRef}>
+                        <Calendar
+                            isHighlightWeekends={isHighlightWeekends}
+                            selectedDate={selectedDate}
+                            setSelectedDate={setSelectedDate}
+                            isFromInput={isFromInput}
+                            isRangePicker={isRangePicker}
+                            isTaskPicker={isTaskPicker}
+                            isDatePickerOpen={isDatePickerOpen}
+                        />
+                    </StyledWrapper>
+                </StyledDatepicker>
+            </ErrorBoundary>
         </>
     )
 }

@@ -1,4 +1,4 @@
-import React, { useCallback, useRef, useState } from 'react'
+import React, { useCallback, useState } from 'react'
 
 import { Calendar } from '@components/calendar'
 import { ErrorBoundary } from '@components/errorBoundary'
@@ -34,24 +34,21 @@ const DatePicker = ({
     const inputClick = useCallback(() => openDatePicker(), [isDatePickerOpen])
     const [selectedDate, setSelectedDate] = useState<null | number>(null)
 
-    const calendarRef = useRef<HTMLDivElement>(null)
-    const inputRef = useRef<HTMLInputElement>(null)
-    useOutsideClick(calendarRef, inputRef, closeDatePicker, isDatePickerOpen)
+    useOutsideClick(closeDatePicker, isDatePickerOpen)
 
     return (
         <>
-            <GlobalStyles />
             <NullStyles />
+            <GlobalStyles />
             <ErrorBoundary>
                 <StyledDatepicker id='date-picker' data-testid='date-picker'>
                     <Input
                         onClick={inputClick}
-                        ref={inputRef}
                         setSelectedDate={setSelectedDate}
                         isFromInput={isFromInput}
                         isRangePicker={isRangePicker}
                     />
-                    <StyledWrapper $isOpen={isDatePickerOpen} $rangePicker={isRangePicker} ref={calendarRef}>
+                    <StyledWrapper $isOpen={isDatePickerOpen} $rangePicker={isRangePicker}>
                         <Calendar
                             isHighlightWeekends={isHighlightWeekends}
                             selectedDate={selectedDate}

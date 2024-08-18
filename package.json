@@ -1,6 +1,6 @@
 {
     "name": "date-picker-httrkk",
-    "version": "1.0.0",
+    "version": "1.0.9",
     "description": "",
     "license": "ISC",
     "type": "module",
@@ -8,10 +8,6 @@
     "main": "lib/index.js",
     "module": "lib/index.js",
     "types": "lib/index.d.ts",
-    "files": [
-        "dist",
-        "README.md"
-    ],
     "scripts": {
         "storybook": "storybook dev -p 6006",
         "build-storybook": "storybook build",

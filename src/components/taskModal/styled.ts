@@ -4,6 +4,7 @@ import * as colors from '@constants/colors'
 
 export const Modal = styled.div`
     position: absolute;
+    z-index: 60;
     width: 100%;
     height: 100%;
     top: 50px;

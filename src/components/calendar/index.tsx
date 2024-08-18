@@ -165,7 +165,7 @@ export const Calendar = memo(
         const isCalendarPrevArrowDisable = year <= minYear && month === FIRST_MONTH
 
         return (
-            <StyledCalendar>
+            <StyledCalendar id='calendar'>
                 {isTaskPicker && isDatePickerOpen && selectedDate && (
                     <TaskModal year={year} day={selectedDate} month={month + 1} setSelectedDate={setSelectedDate} />
                 )}

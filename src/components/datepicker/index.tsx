@@ -23,7 +23,7 @@ type Props = {
     isTaskPicker?: boolean
 }
 
-const Datepicker = ({
+const DatePicker = ({
     isHighlightWeekends = false,
     isFromInput = false,
     isRangePicker = false,
@@ -68,4 +68,4 @@ const Datepicker = ({
     )
 }
 
-export default withUserDateRedirect(withHolidays(withRestrictions(withWeekStarts(withWeekends(Datepicker))), HOLIDAYS))
+export default withUserDateRedirect(withHolidays(withRestrictions(withWeekStarts(withWeekends(DatePicker))), HOLIDAYS))

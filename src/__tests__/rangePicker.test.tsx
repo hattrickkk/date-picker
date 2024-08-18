@@ -2,7 +2,7 @@ import { render, screen, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import React from 'react'
 
-import Rangepicker from '@components/rangepicker'
+import RangePicker from '@components/rangepicker'
 import { RANGE_BLUE } from '@constants/colors'
 import { getRangeValue } from '@utils/rangePicker/getRangeValue'
 
@@ -20,7 +20,7 @@ const endRange = {
 
 describe('rangePicker renders correctly', () => {
     beforeEach(() => {
-        render(<Rangepicker />)
+        render(<RangePicker />)
     })
 
     it('rangePicker renders', () => {

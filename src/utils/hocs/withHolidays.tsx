@@ -5,7 +5,7 @@ import { Holiday } from '@customTypes/holidays'
 import { DatePickerService } from '@utils/datePickerService'
 import { useHolidays } from '@utils/hooks/useHolidays'
 
-type HocProps = {
+export type WithHolidaysProps = {
     holidaysColor?: string
     holidays?: Holiday[]
     hideHolidays?: boolean
@@ -18,7 +18,11 @@ type WithHolidaysContextType = {
 export const WithHolidaysContext = createContext<WithHolidaysContextType>({} as WithHolidaysContextType)
 
 export const withHolidays = <P extends object>(WrappedComponent: ComponentType<P>, arr: Holiday[]) => {
-    return ({ hideHolidays = false, holidaysColor = colors.HOLIDAYS_COLOR, ...props }: P & HocProps): ReactElement => {
+    return ({
+        hideHolidays = false,
+        holidaysColor = colors.HOLIDAYS_COLOR,
+        ...props
+    }: P & WithHolidaysProps): ReactElement => {
         const datePickerService = new DatePickerService()
         datePickerService.setHolidays(useHolidays(arr))
         datePickerService.setHolidaysColor(holidaysColor)

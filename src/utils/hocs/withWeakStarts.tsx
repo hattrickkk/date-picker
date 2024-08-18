@@ -5,12 +5,12 @@ type WeekStartsContextType = {
 }
 export const WeekStartsContext = createContext<WeekStartsContextType>({ start: 'Sunday' })
 
-type HocProps = {
+export type WithWeekStartsProps = {
     weekStarts?: 'Monday' | 'Sunday'
 }
 
 export const withWeekStarts = <P extends object>(WrappedComponent: ComponentType<P>) => {
-    return ({ weekStarts = 'Sunday', ...props }: P & HocProps): ReactElement => {
+    return ({ weekStarts = 'Sunday', ...props }: P & WithWeekStartsProps): ReactElement => {
         const value = useMemo(() => {
             return { start: weekStarts }
         }, [weekStarts])

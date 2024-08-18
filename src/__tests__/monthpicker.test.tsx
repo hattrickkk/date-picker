@@ -10,7 +10,9 @@ const closeMonthPicker = jest.fn()
 
 describe('month picker renders correctly', () => {
     beforeEach(() => {
-        render(<MonthPicker setMonth={setMonth} closeMonthPicker={closeMonthPicker} isRangePicker={false} />)
+        render(
+            <MonthPicker setMonth={setMonth} closeMonthPicker={closeMonthPicker} isRangePicker={false} year={2024} />
+        )
     })
 
     it('month picker renders', () => {

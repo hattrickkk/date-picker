@@ -2,7 +2,7 @@
 
 ### Description
 
-The "date-picker-httrkk" library is a tool that provides an interface for working with dates. It\`s includes three main components: DatePicker, RangePicker and TaskPicker. Widely used in web applications to make date entry easier.
+The "date-picker-httrkk" library is a tool that provides an interface for working with dates. It\`s includes three main components: DatePicker, RangePicker and TaskPicker. Widely used in web applications to make date entry easier. You can see demo [here](https://date-picker-demo-one.vercel.app/).
 
 ### Installation
 

@@ -49,6 +49,21 @@
         "prettier/prettier": "error",
         "@typescript-eslint/no-unused-vars": ["off"],
         "react/require-default-props": "off",
+        "consistent-return": "off",
+        "no-plusplus": "off",
+        "react/function-component-definition": [
+            "error",
+            {
+                "namedComponents": "arrow-function",
+                "unnamedComponents": "arrow-function"
+            }
+        ],
+        "import/prefer-default-export": "off",
+        "func-names": "off",
+        "no-nested-ternary": "off",
+        "no-restricted-globals": "off",
+        "react/display-name": "off",
+        "no-unused-expressions": "off",
         "react/react-in-jsx-scope": "off",
         "react/jsx-props-no-spreading": "off",
         "import/no-extraneous-dependencies": ["error", { "devDependencies": true }],
@@ -64,20 +79,28 @@
                 "tsx": "never"
             }
         ],
-        "simple-import-sort/imports": [
-            "error",
-            {
-                "groups": [
-                    ["^react", "^@?\\w"],
-                    ["^(@|assets|components|constants|contexts|customTypes|mockData|pages|ui|utils)(/.*|$)"],
-                    ["^\\."],
-                    ["^\\.styled.ts$"]
-                ]
-            }
-        ],
+
         "simple-import-sort/exports": "error",
         "import/first": "error",
-        "import/no-duplicates": "error"
+        "import/no-duplicates": "error",
+        "import/order": [
+            "error",
+            {
+                "groups": ["builtin", "external", "internal"],
+                "pathGroups": [
+                    {
+                        "pattern": "**/styled.ts",
+                        "group": "unknown",
+                        "position": "after"
+                    }
+                ],
+                "newlines-between": "always",
+                "alphabetize": {
+                    "order": "asc",
+                    "caseInsensitive": true
+                }
+            }
+        ]
     },
 
     "ignorePatterns": ["/.git", "node_modules", "./github"]

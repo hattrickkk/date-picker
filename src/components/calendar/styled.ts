@@ -6,6 +6,7 @@ export const StyledCalendar = styled.div`
     margin-top: 8px;
     padding: 10px;
     border: 1px solid ${colors.BORDER_GRAY};
+    background-color: ${colors.WHITE};
     border-radius: 8px;
     position: relative;
 `

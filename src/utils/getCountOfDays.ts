@@ -1,3 +1,5 @@
-export const getCountOfDays = (year: number, month: number, day: number = 0) => {
+import { DateType } from '@customTypes/date'
+
+export const getCountOfDays = ({ year, month, day }: DateType) => {
     return new Date(year, month, day).getDate()
 }

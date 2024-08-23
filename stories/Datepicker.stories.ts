@@ -1,11 +1,13 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
-import Datepicker from '../src/components/datepicker'
+import DatePicker from '../src/components/datepicker'
 import * as colors from '../src/constants/colors'
 
+DatePicker.displayName = 'DatePicker'
+
 const meta = {
-    title: 'Example/Datepicker',
-    component: Datepicker,
+    title: 'Example/DatePicker',
+    component: DatePicker,
     argTypes: {
         isHighlightWeekends: {
             name: 'Highlight weekends',
@@ -66,7 +68,7 @@ const meta = {
         },
     },
     tags: ['autodocs'],
-} satisfies Meta<typeof Datepicker>
+} satisfies Meta<typeof DatePicker>
 
 export default meta
 type Story = StoryObj<typeof meta>

@@ -2,7 +2,7 @@ import { render, screen, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import React from 'react'
 
-import Rangepicker from '@components/rangepicker'
+import RangePicker from '@components/rangepicker'
 import { RANGE_BLUE } from '@constants/colors'
 import { getRangeValue } from '@utils/rangePicker/getRangeValue'
 
@@ -20,7 +20,7 @@ const endRange = {
 
 describe('rangePicker renders correctly', () => {
     beforeEach(() => {
-        render(<Rangepicker />)
+        render(<RangePicker />)
     })
 
     it('rangePicker renders', () => {
@@ -42,20 +42,17 @@ describe('rangePicker renders correctly', () => {
 
         within(fromInput)
             .getAllByTestId('cell')
-            .forEach(element => {
-                if (
-                    +(element.textContent as string) > startRange.day &&
-                    +(element.textContent as string) < endRange.day
-                ) {
-                    expect(
-                        getRangeValue(
-                            startRange,
-                            endRange,
-                            startRange.year,
-                            startRange.month,
-                            +(element.textContent as string)
-                        )
-                    ).toBe('middle')
+            .forEach(({ textContent }) => {
+                if (textContent) {
+                    if (+textContent > startRange.day && +textContent < endRange.day) {
+                        expect(
+                            getRangeValue(startRange, endRange, {
+                                year: startRange.year,
+                                month: startRange.month,
+                                day: +textContent,
+                            })
+                        ).toBe('middle')
+                    }
                 }
             })
 

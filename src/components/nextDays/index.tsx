@@ -1,7 +1,7 @@
 import React, { memo, useContext } from 'react'
 
 import { CALENDAR_DAYS_COUNT, LAST_MONTH, MO } from '@constants/magicValues'
-import { CellClick } from '@customTypes/cellClickType'
+import { OnCellClick } from '@customTypes/cellClickType'
 import { Cell } from '@ui/cell'
 import { getCountOfDays } from '@utils/getCountOfDays'
 import { getCurrent } from '@utils/getCurrent'
@@ -18,15 +18,15 @@ type Props = {
     month: number
     year: number
     maxYear: number
-    onClick: CellClick
+    onClick: OnCellClick
     taskDays: string[]
 }
 
 export const NextDays = memo(({ month, year, maxYear, onClick, taskDays }: Props) => {
     const [curMonth, curYear, curDay] = getCurrent()
 
-    const daysInCurentMonth = getCountOfDays(year, month + 1)
-    const dayOfTheWeekFirst = getDayOfTheWeek(year, month, 1)
+    const daysInCurentMonth = getCountOfDays({ year, month: month + 1, day: 0 })
+    const dayOfTheWeekFirst = getDayOfTheWeek({ year, month, day: 1 })
 
     const { datePickerService } = useContext(WithHolidaysContext)
     const { start } = useContext(WeekStartsContext)
@@ -46,11 +46,14 @@ export const NextDays = memo(({ month, year, maxYear, onClick, taskDays }: Props
                     disable={year >= maxYear && month === LAST_MONTH}
                     isHoliday={
                         datePickerService.getHideHolidays() &&
-                        isHolidayToday(month === LAST_MONTH ? 1 : month + 2, element, datePickerService.getHolidays())
+                        isHolidayToday(
+                            { year, month: month === LAST_MONTH ? 1 : month + 2, day: element },
+                            datePickerService.getHolidays()
+                        )
                     }
                     holidaysColor={datePickerService.getHolidaysColor()}
-                    range={getRangeValue(rangeStart, rangeEnd, year, month + 1, element)}
-                    hasTask={taskDays.includes(getDateforInput(element, month + 2, curYear))}
+                    range={getRangeValue(rangeStart, rangeEnd, { year, month: month + 1, day: element })}
+                    hasTask={taskDays.includes(getDateforInput({ day: element, month: month + 2, year: curYear }))}
                     onClick={onClick(element, false)}
                 />
             ))}

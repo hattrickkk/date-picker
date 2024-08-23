@@ -47,7 +47,7 @@ export const Cell = memo(
             data-testid='cell'
         >
             <Flex $justifycontent='center' $alignitems='center'>
-                <span> {day}</span>
+                {day}
             </Flex>
         </StyledCell>
     )

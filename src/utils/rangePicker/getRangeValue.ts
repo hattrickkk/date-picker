@@ -2,22 +2,16 @@ import { DateType } from '@customTypes/date'
 
 import { isEqual } from './isEqual'
 
-export const getRangeValue = (
-    start: DateType | null,
-    end: DateType | null,
-    year: number,
-    month: number,
-    day: number
-) => {
-    if (start && !end && isEqual(start, year, month, day)) return 'start'
-    if (!start && end && isEqual(end, year, month, day)) return 'end'
+export const getRangeValue = (start: DateType | null, end: DateType | null, date: DateType) => {
+    if (start && !end && isEqual(start, date)) return 'start'
+    if (!start && end && isEqual(end, date)) return 'end'
 
     if (start && end) {
-        const startEqual = isEqual(start, year, month, day)
-        const endEqual = isEqual(end, year, month, day)
+        const startEqual = isEqual(start, date)
+        const endEqual = isEqual(end, date)
         const startDate = new Date(start.year, start.month, start.day)
         const endDate = new Date(end.year, end.month, end.day)
-        const currentDate = new Date(year, month, day)
+        const currentDate = new Date(date.year, date.month, date.day)
 
         if (startDate < endDate) {
             if (startEqual) return 'start'

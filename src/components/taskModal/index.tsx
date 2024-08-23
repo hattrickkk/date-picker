@@ -2,6 +2,8 @@ import React, { useCallback, useMemo } from 'react'
 import { createPortal } from 'react-dom'
 
 import { Tasks } from '@components/tasks'
+import { GlobalStyles } from '@styles/global'
+import { NullStyles } from '@styles/nullStyles'
 import { CloseIcon } from '@ui/closeIcon'
 import { getDateforInput } from '@utils/getDateForInput'
 
@@ -16,23 +18,27 @@ type Props = {
 
 export const TaskModal = ({ day, month, year, setSelectedDate }: Props) => {
     const container = document.getElementById('date-picker')
-    if (container === null) return null
+    if (!container) return null
 
-    const date = useMemo(() => getDateforInput(day, month, year), [day, month, year])
+    const date = useMemo(() => getDateforInput({ day, month, year }), [day, month, year])
 
     const closeIconHandler = useCallback(() => setSelectedDate(null), [])
 
     return createPortal(
-        <Modal id='task-modal'>
-            <Header>
-                <Date>{date}</Date>
-                <Wrapper onClick={closeIconHandler}>
-                    <CloseIcon />
-                </Wrapper>
-            </Header>
+        <>
+            <NullStyles />
+            <GlobalStyles />
+            <Modal id='task-modal'>
+                <Header>
+                    <Date>{date}</Date>
+                    <Wrapper onClick={closeIconHandler}>
+                        <CloseIcon />
+                    </Wrapper>
+                </Header>
 
-            <Tasks date={date} />
-        </Modal>,
+                <Tasks date={date} />
+            </Modal>
+        </>,
         container
     )
 }

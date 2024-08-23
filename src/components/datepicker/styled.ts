@@ -10,7 +10,8 @@ export const StyledWrapper = styled.div<{ $isOpen: boolean; $rangePicker: boolea
     height: 0;
     overflow: hidden;
     transition: 0.3s all ease;
-    background-color: ${colors.WHITE};
+    position: absolute;
+    z-index: 50;
 
     ${({ $isOpen, $rangePicker }) => $isOpen && `height: ${$rangePicker ? 305 : 277}px;`}
 `

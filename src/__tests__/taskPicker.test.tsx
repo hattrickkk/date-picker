@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import React from 'react'
 
-import { Taskpicker } from '@components/taskpicker'
+import TaskPicker from '@components/taskpicker'
 
 const addTask = async (title: string) => {
     const user = userEvent.setup()
@@ -16,7 +16,7 @@ const addTask = async (title: string) => {
 
 describe('taskpicker renders correctly', () => {
     beforeEach(async () => {
-        render(<Taskpicker />)
+        render(<TaskPicker />)
         expect(screen.getByTestId('date-picker')).toBeInTheDocument()
         const user = userEvent.setup()
         await user.click(screen.getByTestId('input'))
